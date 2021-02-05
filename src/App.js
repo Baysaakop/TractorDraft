@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter, BrowserRouter as Router } from 'react-router-dom';
 import CustomLayout from './layout/Layout';
 import BaseRouter from './routes';
 import * as actions from './store/actions/auth';
@@ -15,11 +15,11 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Router> 
+                <HashRouter> 
                     <CustomLayout {...this.props}>
                         <BaseRouter />
                     </CustomLayout>
-                </Router>
+                </HashRouter>
             </div>
         );
     }    
