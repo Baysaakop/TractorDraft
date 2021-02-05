@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/TractorDraft/static/css/main.724a6b7b.chunk.css",
+    "main.js": "/TractorDraft/static/js/main.6e97bcfd.chunk.js",
+    "main.js.map": "/TractorDraft/static/js/main.6e97bcfd.chunk.js.map",
+    "runtime-main.js": "/TractorDraft/static/js/runtime-main.cd0090da.js",
+    "runtime-main.js.map": "/TractorDraft/static/js/runtime-main.cd0090da.js.map",
+    "static/css/2.b00201c5.chunk.css": "/TractorDraft/static/css/2.b00201c5.chunk.css",
+    "static/js/2.cdc0396e.chunk.js": "/TractorDraft/static/js/2.cdc0396e.chunk.js",
+    "static/js/2.cdc0396e.chunk.js.map": "/TractorDraft/static/js/2.cdc0396e.chunk.js.map",
+    "static/js/3.d8faaa22.chunk.js": "/TractorDraft/static/js/3.d8faaa22.chunk.js",
+    "static/js/3.d8faaa22.chunk.js.map": "/TractorDraft/static/js/3.d8faaa22.chunk.js.map",
+    "index.html": "/TractorDraft/index.html",
+    "static/css/2.b00201c5.chunk.css.map": "/TractorDraft/static/css/2.b00201c5.chunk.css.map",
+    "static/css/main.724a6b7b.chunk.css.map": "/TractorDraft/static/css/main.724a6b7b.chunk.css.map",
+    "static/js/2.cdc0396e.chunk.js.LICENSE.txt": "/TractorDraft/static/js/2.cdc0396e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cd0090da.js",
+    "static/css/2.b00201c5.chunk.css",
+    "static/js/2.cdc0396e.chunk.js",
+    "static/css/main.724a6b7b.chunk.css",
+    "static/js/main.6e97bcfd.chunk.js"
+  ]
+}
