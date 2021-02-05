@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, Typography, Spin, Row, Col } from 'antd';
+import { Form, Input, Button, Typography, Spin } from 'antd';
 import { LoadingOutlined, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -29,11 +29,10 @@ const Signup = (props) => {
             {props.loading ? (
                 <Spin indicator={loadingIcon} />
             ) : (
-                <Row>            
-                    <Col xs={0} sm={4} md={6} lg={8}></Col> 
-                    <Col xs={24} sm={16} md={12} lg={8} style={{ border: '1px solid #a1a1a1', padding: '16px' }}>
+                <div style={{ width: '100%', height: '70vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ width: '400px', border: '1px solid #a1a1a1', padding: '16px' }}>
                         <Typography.Title level={3} style={{ textAlign: 'center' }}>
-                            Sign up                    
+                            Бүртгүүлэх                    
                         </Typography.Title>                        
                         <Form                            
                             form={form}
@@ -57,7 +56,7 @@ const Signup = (props) => {
                                 },
                                 ]}
                             >
-                                <Input prefix={<MailOutlined style={{ color: '#a1a1a1' }} />} placeholder="E-mail" />
+                                <Input prefix={<MailOutlined style={{ color: '#a1a1a1' }} />} placeholder="И-Мэйл" />
                             </Form.Item>
                             <Form.Item
                                 name="username"                                                          
@@ -68,7 +67,7 @@ const Signup = (props) => {
                                 },
                                 ]}
                             >
-                                <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} placeholder="Username" />
+                                <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нэвтрэх нэр" />
                             </Form.Item>
                             <Form.Item
                                 name="password"                                
@@ -80,7 +79,7 @@ const Signup = (props) => {
                                 ]}
                                 hasFeedback
                             >
-                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Password" />
+                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг" />
                             </Form.Item>
                             <Form.Item
                                 name="confirm"                                
@@ -101,20 +100,19 @@ const Signup = (props) => {
                                 }),
                                 ]}
                             >
-                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Confirm Password" />
+                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг давтах" />
                             </Form.Item>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                                    Sign up
+                                    Бүртгүүлэх
                                 </Button>
-                                <p> or 
-                                    <NavLink to="/login/"> login here</NavLink>
+                                <p> эсвэл 
+                                    <NavLink to="/login/"> нэвтрэх</NavLink>
                                 </p>
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col xs={0} sm={4} md={6} lg={8}></Col> 
-                </Row>
+                    </div>
+                </div>
             )}  
         </div>      
     );

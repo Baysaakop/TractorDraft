@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, Typography, Spin, Row, Col } from 'antd';
+import { Form, Input, Button, Typography, Spin } from 'antd';
 import { LoadingOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -30,11 +30,10 @@ const Login = (props) => {
             {props.loading ? (
                 <Spin indicator={loadingIcon} />
             ) : (
-                <Row>            
-                    <Col xs={0} sm={4} md={6} lg={8}></Col>
-                    <Col xs={24} sm={16} md={12} lg={8} style={{ border: '1px solid #a1a1a1', padding: '16px' }}>
+                <div style={{ width: '100%', height: '70vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ width: '400px', border: '1px solid #a1a1a1', padding: '16px' }}>
                         <Typography.Title level={3} style={{ textAlign: 'center' }}>
-                            Login                    
+                            Нэвтрэх                    
                         </Typography.Title>                        
                         <Form                            
                             form={form}                            
@@ -55,7 +54,7 @@ const Login = (props) => {
                                 },
                                 ]}
                             >
-                                <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} placeholder="Username" />
+                                <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нэр" />
                             </Form.Item>
 
                             <Form.Item                                
@@ -67,20 +66,19 @@ const Login = (props) => {
                                 },
                                 ]}
                             >
-                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Password" />
+                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг" />
                             </Form.Item>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                                    Login
+                                    Нэвтрэх
                                 </Button>
-                                <p> or 
-                                    <NavLink to="/signup/"> register here</NavLink>
+                                <p> эсвэл 
+                                    <NavLink to="/signup/"> бүртгүүлэх</NavLink>
                                 </p>
                             </Form.Item>
                         </Form>
-                    </Col>  
-                    <Col xs={0} sm={4} md={6} lg={8}></Col>                  
-                </Row>
+                    </div>
+                </div>               
             )}  
         </div>      
     );

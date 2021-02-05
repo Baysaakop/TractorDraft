@@ -42,14 +42,7 @@ function CustomLayout (props) {
                 <div className="content-item">
                     {props.children}                    
                 </div>                
-                <div className="theme-switch-container">
-                    {/* <Switch                         
-                        className="theme-switch"
-                        checkedChildren={<span><BulbFilled /> Light</span>}
-                        unCheckedChildren={<span><BulbOutlined /> Dark</span>}
-                        defaultChecked={!darkMode}
-                        onChange={() => setDarkMode(prevMode => !prevMode)}                    
-                    />          */}
+                <div className="theme-switch-container">                   
                     <Tooltip title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
                         <Button 
                             type={darkMode ? "primary" : "default"}
