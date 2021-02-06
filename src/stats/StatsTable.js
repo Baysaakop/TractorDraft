@@ -38,7 +38,7 @@ const StatsTable = (props) => {
         <div>
             { data ? (
                 <div>
-                    <Table columns={columns} dataSource={data} size="small" pagination={{ pageSize: 10, }} showHeader={false} />
+                    <Table columns={columns} dataSource={data} size="small" pagination={{ pageSize: 5, }} showHeader={false} />
                 </div>
             ) : (
                 <div style={{ width: '100%', height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

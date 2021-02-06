@@ -19,43 +19,7 @@ const columns = [
         dataIndex: 'manager',
         key: 'manager',
         render: item => <a href={`/managers/${item.id}`}>{item.name}</a>
-    },
-    {
-        title: 'Хожил',
-        dataIndex: 'wins',
-        key: 'wins',
-        sorter: {
-            compare: (a, b) => b.wins - a.wins,
-        },
-        
-    },
-    {
-        title: 'Тэнцээ',
-        dataIndex: 'draws',
-        key: 'draws',
-        sorter: {
-            compare: (a, b) => b.draws - a.draws,
-        },
-        responsive: ['md'],
-    },
-    {
-        title: 'Хожигдол',
-        dataIndex: 'losses',
-        key: 'losses',
-        sorter: {
-            compare: (a, b) => b.losses - a.losses,
-        },
-        responsive: ['md'],
     },    
-    {
-        title: '+',
-        dataIndex: 'score',
-        key: 'score',
-        sorter: {
-            compare: (a, b) => b.score - a.score,            
-        },
-        responsive: ['md'],
-    },
     {
         title: 'Оноо',
         dataIndex: 'points',
@@ -66,7 +30,7 @@ const columns = [
     },
 ];
 
-const LeagueTable = (props) => {
+const LeagueTableMini = (props) => {
     
     const [league, setLeague] = useState();       
     
@@ -96,18 +60,19 @@ const LeagueTable = (props) => {
                         dataSource={league.table.teams.sort((a, b) => a.rank - b.rank)} 
                         onChange={onChange} 
                         pagination={false} 
+                        size="middle"
                     />
                     <div style={{ backgroundColor: '#fff', padding: '16px' }}>
                         <strong>Тайлбар:</strong>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' }}>
                             <div>
-                                <Tag color='green'>1-3</Tag> - Шагналт байр        
+                                <Tag color='green'>1-3</Tag>- Шагналт       
                             </div>
                             <div>
-                                <Tag color='geekblue'>4-7</Tag> - Аюулгүй бүс        
+                                <Tag color='geekblue'>4-7</Tag>- Аюулгүй        
                             </div>
                             <div>
-                                <Tag color='volcano'>8-10</Tag> - Унах бүс         
+                                <Tag color='volcano'>8-10</Tag>- Унах        
                             </div>
                         </div>
                     </div>
@@ -121,4 +86,4 @@ const LeagueTable = (props) => {
     );
 };
 
-export default LeagueTable;
+export default LeagueTableMini;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Grid, Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
-import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined, QuestionOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined,    QuestionCircleOutlined, EditOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -106,6 +106,9 @@ function CustomMenu (props) {
                     </SubMenu>                    
                     <Menu.Item key="stats" icon={<AreaChartOutlined />}>
                         <Link to="/stats">Статистик</Link>
+                    </Menu.Item>
+                    <Menu.Item key="news" icon={<EditOutlined />}>
+                        <Link to="/news">Нийтлэл</Link>
                     </Menu.Item>                                                                 
                     { props.username !== null ? (
                         <SubMenu key="user" icon={<UserOutlined />} title={props.username} style={{ float: 'right' }} >
