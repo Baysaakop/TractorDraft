@@ -8,7 +8,7 @@ import api from '../api';
 const SeasonList = (props) => {
 
     const [leagues, setLeagues] = useState();
-    const [leagueID, setLeagueID] = useState(2);
+    const [leagueID, setLeagueID] = useState(5);
     const [level, setLevel] = useState(1);
 
     useEffect(() => {

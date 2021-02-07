@@ -9,31 +9,36 @@ const data = [
     {
         title: 'Баясаа',
         points: '100 оноо',
+        wins: '14 хожил',
+        score: '1024 оноо',
         image: "https://resources.premierleague.com/premierleague/badges/50/t14.png"
     },
     {
         title: 'Мөнхсайхан',
         points: '56 оноо',
+        wins: '13 хожил',
+        score: '1022 оноо',
         image: "https://resources.premierleague.com/premierleague/badges/50/t43.png"
     },
     {
         title: 'Зундуй',
         points: '49 оноо',
+        wins: '13 хожил',
+        score: '1016 оноо',
         image: "https://resources.premierleague.com/premierleague/badges/50/t14.png"
     },
     {
         title: 'Луугий',
         points: '47 оноо',
+        wins: '12 хожил',
+        score: '1005 оноо',
         image: "https://resources.premierleague.com/premierleague/badges/50/t8.png"
     },
     {
         title: 'Төгсөө',
         points: '47 оноо',
-        image: "https://resources.premierleague.com/premierleague/badges/50/t3.png"
-    },
-    {
-        title: 'Очироо',
-        points: '44 оноо',
+        wins: '12 хожил',
+        score: '996 оноо',
         image: "https://resources.premierleague.com/premierleague/badges/50/t3.png"
     }
   ];
@@ -105,17 +110,33 @@ function Home (props) {
                 </Col>
             </Row>
             <div style={{ margin: '16px 0' }}>
-                <Typography.Title level={2}>Тойргийн шилдэг менежерүүд</Typography.Title>
+                <Typography.Title level={2}>Тойргийн мэргэн буучид</Typography.Title>
+                <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
+                <Row gutter={16}>
+                    <Col sm={24} md={12}>
+                        <Card hoverable title="Очироо - 57 оноо" extra="Дээд лиг">
+                            <img src="https://resources.premierleague.com/premierleague/photo/2016/08/17/0c337304-1fba-4b00-a1e9-23d417b9367b/Manager-GW1.png" alt="motw" style={{ width: '100%', height: 'auto' }} />        
+                        </Card>                        
+                    </Col>
+                    <Col sm={24} md={12}>
+                        <Card hoverable title="Зундуй - 55 оноо" extra="Чэмпионшип">
+                            <img src="https://resources.premierleague.com/premierleague/photo/2016/08/23/07a9f156-0b98-4e7e-a5f5-d706539f1022/gw2-totw.png" alt="motw" style={{ width: '100%', height: 'auto' }} />        
+                        </Card>                        
+                    </Col>
+                </Row>         
+            </div>
+            <div style={{ margin: '16px 0' }}>
+                <Typography.Title level={2}>Тойргийн өндөр оноонууд</Typography.Title>
                 <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
                 <List
                     grid={{
                         gutter: 16,
                         xs: 1,
                         sm: 2,
-                        md: 4,
+                        md: 3,
                         lg: 4,
-                        xl: 6,
-                        xxl: 3,
+                        xl: 5,
+                        xxl: 5,
                     }}
                     dataSource={data}
                     renderItem={item => (
@@ -127,6 +148,52 @@ function Home (props) {
                     )}
                 />                
             </div>            
+            <div style={{ margin: '16px 0' }}>
+                <Typography.Title level={2}>Улирлыг хожлоор тэргүүлэгчид</Typography.Title>
+                <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
+                <List
+                    grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 2,
+                        md: 3,
+                        lg: 4,
+                        xl: 5,
+                        xxl: 5,
+                    }}
+                    dataSource={data}
+                    renderItem={item => (
+                        <List.Item>
+                            <Card hoverable title={item.title} extra={<Avatar shape="square" src={item.image} />}>
+                                <Typography.Title level={2}>{item.wins}</Typography.Title>
+                            </Card>
+                        </List.Item>
+                    )}
+                />                
+            </div>
+            <div style={{ margin: '16px 0' }}>
+                <Typography.Title level={2}>Улирлыг оноогоор тэргүүлэгчид</Typography.Title>
+                <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
+                <List
+                    grid={{
+                        gutter: 16,
+                        xs: 1,
+                        sm: 2,
+                        md: 3,
+                        lg: 4,
+                        xl: 5,
+                        xxl: 5,
+                    }}
+                    dataSource={data}
+                    renderItem={item => (
+                        <List.Item>
+                            <Card hoverable title={item.title} extra={<Avatar shape="square" src={item.image} />}>
+                                <Typography.Title level={2}>{item.score}</Typography.Title>
+                            </Card>
+                        </List.Item>
+                    )}
+                />                
+            </div>
         </div>
     )
 }

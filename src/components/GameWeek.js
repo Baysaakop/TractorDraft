@@ -1,13 +1,14 @@
-import { Col, Row, Select, Spin, List, Typography } from 'antd';
+import { Col, Row, Select, Spin, List, Typography, Avatar } from 'antd';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import api from '../api';
-import Avatar from 'antd/lib/avatar/avatar';
+import { connect } from 'react-redux';
 
 const GameWeek = (props) => {
     
     const [league, setLeague] = useState();    
     const [gameweek, setGameweek] = useState();
+    const [user, setUser] = useState();
 
     useEffect(() => {
         setLeague(undefined)
@@ -21,7 +22,19 @@ const GameWeek = (props) => {
         }).catch(err => {
             console.log(err.message)
         });
-    }, [props.id])
+        axios({
+            method: 'GET',
+            url: api.profile,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${props.token}`
+            }
+        }).then(response => {            
+            setUser(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }, [props.id, props.token])
 
     function handleChange(value) {
         console.log(value)   
@@ -42,7 +55,18 @@ const GameWeek = (props) => {
                     </Select>     
                     { gameweek ? (
                         <List 
-                            header={<strong>Үр дүн:</strong>}
+                            header={
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <div><strong>Үр дүн:</strong></div>
+                                    <div>
+                                        {user && user.profile.role === "1" ? (
+                                            <a href={`/updategameweek/${gameweek.id}`}>Edit</a>
+                                        ) : (
+                                            <></>
+                                        )}
+                                    </div>
+                                </div>
+                            }
                             footer={
                                 <div>
                                     <strong>Тайлбар:</strong>
@@ -113,4 +137,10 @@ const GameWeek = (props) => {
     );
 };
 
-export default GameWeek;
+const mapStateToProps = state => {
+    return {                
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps)(GameWeek);

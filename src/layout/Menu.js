@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Grid, Menu } from 'antd';
-import { Link, withRouter } from 'react-router-dom';
-import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined,    QuestionCircleOutlined, EditOutlined } from '@ant-design/icons';
-import { connect } from 'react-redux';
-import * as actions from '../store/actions/auth';
+import { Link } from 'react-router-dom';
+import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined,    QuestionCircleOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import api from '../api';
 import SubMenu from 'antd/lib/menu/SubMenu';
 
 const { useBreakpoint } = Grid;
@@ -12,6 +12,23 @@ function CustomMenu (props) {
     const screens = useBreakpoint();
     const [current, setCurrent] = useState('home');
     const [collapsed, setCollapsed] = useState(true);      
+    const [user, setUser] = useState();
+
+    useEffect(() => {        
+        axios({
+            method: 'GET',
+            url: api.profile,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${props.token}`
+            }
+        }).then(response => {     
+            console.log(response.data)       
+            setUser(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }, [props.token])
 
     const handleMenuClick = (e) => {             
         setCurrent(e.key);
@@ -21,6 +38,11 @@ function CustomMenu (props) {
     const handleMenuCollapsed = () => {
         setCollapsed(!collapsed);
     }    
+
+    function signout() {
+        props.logout()
+        props.history.goBack()
+    }
 
     return (
         <div>
@@ -57,20 +79,27 @@ function CustomMenu (props) {
                         <Menu.Item key="season19" icon={<BookOutlined />}>
                             <Link to="/season19">19-20 улирал</Link>
                         </Menu.Item>         
-                        { props.username !== null ? (
-                             <SubMenu key="user" icon={<UserOutlined />} title={props.username} >
+                        { user && user !== null ? (
+                            <SubMenu key="user" icon={<UserOutlined />} title={user.username} >
                                 <Menu.Item key="profile" icon={<ProfileOutlined />} >
-                                    <Link to="/profile">Profile</Link>
+                                    <Link to="/profile">Хэрэглэгч</Link>
                                 </Menu.Item>
-                                <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={props.logout}>
-                                    Log out
+                                { user.profile.role === "1" ? (
+                                    <Menu.Item key="addseason" icon={<PlusOutlined />} >
+                                        <Link to="/addseason">Улирал нэмэх</Link>
+                                    </Menu.Item>
+                                ) : (
+                                    <></>
+                                )}
+                                <Menu.Item key="logout" icon={<LogoutOutlined />}>
+                                    <Link to="/logout">Гарах</Link>
                                 </Menu.Item>
                             </SubMenu>
                         ) : (
-                            <Menu.Item key="signin" icon={<LoginOutlined />} >
-                                <Link to="/login">Sign in</Link>
+                            <Menu.Item key="login" icon={<LoginOutlined />} >
+                                <Link to="/login">Нэвтрэх</Link>
                             </Menu.Item>
-                        ) }               
+                        ) }                    
                     </Menu>
                 </div>
             ) : (
@@ -110,13 +139,20 @@ function CustomMenu (props) {
                     <Menu.Item key="news" icon={<EditOutlined />}>
                         <Link to="/news">Нийтлэл</Link>
                     </Menu.Item>                                                                 
-                    { props.username !== null ? (
-                        <SubMenu key="user" icon={<UserOutlined />} title={props.username} style={{ float: 'right' }} >
+                    { user && user !== null ? (
+                        <SubMenu key="user" icon={<UserOutlined />} title={user.username} style={{ float: 'right' }} >
                             <Menu.Item key="profile" icon={<ProfileOutlined />} >
                                 <Link to="/profile">Хэрэглэгч</Link>
                             </Menu.Item>
-                            <Menu.Item key="logout" icon={<LogoutOutlined />} onClick={props.logout}>
-                                Гарах
+                            { user.profile.role === "1" ? (
+                                <Menu.Item key="newseason" icon={<PlusOutlined />} >
+                                    <Link to="/newseason">Улирал нэмэх</Link>
+                                </Menu.Item>
+                            ) : (
+                                <></>
+                            )}
+                            <Menu.Item key="logout" icon={<LogoutOutlined />}>
+                                <Link to="/logout">Гарах</Link>
                             </Menu.Item>
                         </SubMenu>
                     ) : (
@@ -130,10 +166,4 @@ function CustomMenu (props) {
     )
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        logout: () => dispatch(actions.logout())        
-    }
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(CustomMenu));
+export default CustomMenu;

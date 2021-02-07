@@ -15,6 +15,9 @@ import ManagerDetail from './manager/ManagerDetail';
 import StatsList from './stats/StatsList';
 import DuelCompare from './duel/DuelCompare';
 import Season19 from './season/Season19';
+import SeasonCreate from './season/SeasonCreate';
+import Logout from './user/Logout';
+import GameweekUpdate from './duel/GameweekUpdate';
 
 function BaseRouter () {
     return (
@@ -28,15 +31,21 @@ function BaseRouter () {
             {/* User urls */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/logout" component={Logout} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/editprofile" component={ProfileEdit} />
             {/* Pages */}
+            {/* Seasons */}
             <Route exact path="/seasons" component={SeasonList} />
+            <Route exact path="/season19" component={Season19} />
+            <Route exact path="/newseason" component={SeasonCreate} />
+            <Route exact path="/updategameweek/:weekID" component={GameweekUpdate} />
+            {/* Managers */}
             <Route exact path="/managers" component={ManagerList} />
             <Route exact path="/managers/:itemID" component={ManagerDetail} />
-            <Route exact path="/stats" component={StatsList} />
             <Route exact path="/compare" component={DuelCompare} />
-            <Route exact path="/season19" component={Season19} />
+            {/* Stats */}
+            <Route exact path="/stats" component={StatsList} />                        
         </Switch>
     )    
 }
