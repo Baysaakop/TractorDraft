@@ -24,28 +24,39 @@ function GameweekUpdate (props) {
         }
     }, [props.match.params.weekID])
 
-    const onFinish = values => {         
-        let week = gameweek            
+    function getMatches(values) {
+        let matches = gameweek.matches                    
         for (const [key, value] of Object.entries(values)) {
             let match = key.toString().split("|");            
             if (match[1] === "home_score") {
-                week.matches.find(x => x.id === parseInt(match[0])).home_score = parseInt(value)
+                matches.find(x => x.id === parseInt(match[0])).home_score = parseInt(value)                
             } else if (match[1] === "away_score") {
-                week.matches.find(x => x.id === parseInt(match[0])).away_score = parseInt(value)
+                matches.find(x => x.id === parseInt(match[0])).away_score = parseInt(value)
             }            
-        }                  
+        }         
+        return matches
+    }
+
+    const onFinish = values => {               
+        let data = {            
+            "matches": getMatches(values),
+            "token": props.token
+        }            
         axios({
-            method: 'PUT',
+            method: 'PATCH',
             url: `${api.gameweeks}/${gameweek.id}/`,
-            data: week                
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data                
         })            
         .then(res => {
             console.log(res)
             message.info(res.statusText)                
         })
         .catch(err => {                
-            console.log(err)
-            message.info(err)
+            console.log(err.message)
+            message.info(err.message)
         })  
     };
 

@@ -60,7 +60,7 @@ const GameWeek = (props) => {
                                     <div><strong>Үр дүн:</strong></div>
                                     <div>
                                         {user && user.profile.role === "1" ? (
-                                            <a href={`/updategameweek/${gameweek.id}`}>Edit</a>
+                                            <a href={`/updategameweek/${gameweek.id}`}>Засах</a>
                                         ) : (
                                             <></>
                                         )}
