@@ -113,19 +113,19 @@ const DuelCompare = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_win
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_win
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9) * 100
+        res = res / count * 100
         return res.toFixed(1)
     }
 
@@ -195,19 +195,19 @@ const DuelCompare = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_score
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_score
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9)
+        res = res / count
         return res.toFixed(1)
     }
 
@@ -217,19 +217,19 @@ const DuelCompare = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_score_away
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_score_away
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9)
+        res = res / count
         return res.toFixed(1)
     }
 

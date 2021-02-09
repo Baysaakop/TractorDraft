@@ -1,4 +1,4 @@
-import { EyeOutlined, FlagOutlined, FrownOutlined, MehOutlined, MinusOutlined, PlusOutlined, ProjectOutlined, SmileOutlined, ToTopOutlined, TrophyFilled, TrophyOutlined } from '@ant-design/icons';
+import { DislikeOutlined, EyeOutlined, FlagOutlined, FrownOutlined, LikeOutlined, MehOutlined, MinusOutlined, PlusOutlined, ProjectOutlined, PushpinOutlined, ScheduleOutlined, SmileOutlined, StarFilled, StarOutlined, ToTopOutlined, TrophyFilled, TrophyOutlined } from '@ant-design/icons';
 import { Breadcrumb, Card, Col, Radio, Row, Spin } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ const StatsList = (props) => {
 
     const [managers, setManagers] = useState();        
     const [level, setLevel] = useState(0);
+    const [leagues, setLeagues] = useState();    
 
     useEffect(() => {      
         axios({
@@ -19,7 +20,15 @@ const StatsList = (props) => {
             setManagers(res.data)
         }).catch(err => {
             console.log(err.message)
-        });                          
+        });
+        axios({
+            method: 'GET',
+            url: `${api.leagues}`
+        }).then(res => {                   
+            setLeagues(res.data)                 
+        }).catch(err => {
+            console.log(err.message)
+        });    
     }, []);    
 
     function getChampion(manager, level) {
@@ -82,6 +91,21 @@ const StatsList = (props) => {
         return res
     }
 
+    function getMatch(manager, level) {
+        let res = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_match
+            }
+        }
+        return res
+    }
+
     function getTopScorer(manager, level) {        
         let res = 0
         if (level === 0) {
@@ -92,6 +116,21 @@ const StatsList = (props) => {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_topscorer
+            }
+        }
+        return res
+    }
+
+    function getTopScorerAway(manager, level) {        
+        let res = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_topscorer_away
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_topscorer_away
             }
         }
         return res
@@ -202,6 +241,304 @@ const StatsList = (props) => {
         return res
     }
 
+    function getAverageScore(manager, level) {
+        let res = 0
+        let count = 0
+        let list 
+        if (level === 0) {
+            list = leagues.filter(x => x.isFinished === true)            
+        } else {
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
+        }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.score
+                    count += 1
+                }
+            })
+        })
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageScoreAway(manager, level) {
+        let res = 0
+        let count = 0
+        let list 
+        if (level === 0) {
+            list = leagues.filter(x => x.isFinished === true)            
+        } else {
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
+        }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.score_away
+                    count += 1
+                }
+            })
+        })
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAveragePoints(manager, level) {
+        let res = 0
+        let count = 0
+        let list 
+        if (level === 0) {
+            list = leagues.filter(x => x.isFinished === true)            
+        } else {
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
+        }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.points
+                    count += 1
+                }
+            })
+        })
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageWins(manager, level) {
+        let res = 0
+        let count = 0
+        let list 
+        if (level === 0) {
+            list = leagues.filter(x => x.isFinished === true)            
+        } else {
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
+        }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.wins
+                    count += 1
+                }
+            })
+        })
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageDraws(manager, level) {
+        let res = 0
+        let count = 0
+        let list 
+        if (level === 0) {
+            list = leagues.filter(x => x.isFinished === true)            
+        } else {
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
+        }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.draws
+                    count += 1
+                }
+            })
+        })
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageLosses(manager, level) {
+        let res = 0
+        let count = 0
+        let list 
+        if (level === 0) {
+            list = leagues.filter(x => x.isFinished === true)            
+        } else {
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
+        }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.losses
+                    count += 1
+                }
+            })
+        })
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageMatchScore(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_score
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_score
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageMatchScoreAway(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_score_away
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_score_away
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getAverageMatchPoints(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_point
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_point
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count
+        return res.toFixed(1)
+    }
+
+    function getMatchTopScorerRate(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_topscorer
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_topscorer
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count * 100
+        return res.toFixed(1)
+    }
+
+    function getMatchWinRate(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_win
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_win
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count * 100
+        return res.toFixed(1)
+    }
+
+    function getMatchDrawRate(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_draw
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_draw
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count * 100
+        return res.toFixed(1)
+    }
+
+    function getMatchLossRate(manager, level) {
+        let res = 0
+        let count = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_loss
+                count += career.total_match
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_loss
+                count = career.total_match
+            }
+        }
+        if (count === 0) {
+            return 0
+        }
+        res = res / count * 100
+        return res.toFixed(1)
+    }
+
     function orderByChamp(data, size) {
         let result = []
         let sorted = data.sort((a, b) => getChampion(b, level) - getChampion(a, level))
@@ -266,6 +603,20 @@ const StatsList = (props) => {
                 rank: (i + 1),
                 manager: sorted[i],
                 number: getTopScorer(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByTopScorerAway(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getTopScorerAway(b, level) - getTopScorerAway(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getTopScorerAway(sorted[i], level)  
             }
             result.push(item)
         }
@@ -369,6 +720,174 @@ const StatsList = (props) => {
         }
         return result
     } 
+
+    function orderByAveragePoints(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAveragePoints(b, level) - getAveragePoints(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAveragePoints(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageScore(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageScore(b, level) - getAverageScore(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageScore(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageScoreAway(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageScoreAway(b, level) - getAverageScoreAway(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageScoreAway(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageWins(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageWins(b, level) - getAverageWins(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageWins(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+    
+    function orderByAverageDraws(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageDraws(b, level) - getAverageDraws(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageDraws(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageLosses(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageLosses(b, level) - getAverageLosses(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageLosses(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageMatchPoints(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageMatchPoints(b, level) - getAverageMatchPoints(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageMatchPoints(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageMatchScore(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageMatchScore(b, level) - getAverageMatchScore(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageMatchScore(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByAverageMatchScoreAway(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getAverageMatchScoreAway(b, level) - getAverageMatchScoreAway(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getAverageMatchScoreAway(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByMatchWinRate(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getMatchWinRate(b, level) - getMatchWinRate(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getMatchWinRate(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByMatchDrawRate(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getMatchDrawRate(b, level) - getMatchDrawRate(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getMatchDrawRate(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
+
+    function orderByMatchLossRate(data, size) {
+        let result = []
+        let sorted = data.sort((a, b) => getMatchLossRate(b, level) - getMatchLossRate(a, level))
+        for (let i = 0; i < size; i++) {
+            let item = { 
+                rank: (i + 1),
+                manager: sorted[i],
+                number: getMatchLossRate(sorted[i], level)  
+            }
+            result.push(item)
+        }
+        return result
+    }
     
     function onChangeLevel(e) {
         setLevel(e.target.value)
@@ -376,7 +895,7 @@ const StatsList = (props) => {
 
     return (
         <div>
-            { managers ? (
+            { managers && leagues ? (
                 <div>
                     <Breadcrumb>
                         <Breadcrumb.Item>
@@ -410,22 +929,22 @@ const StatsList = (props) => {
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
-                            <Card title="Оролцсон" size="small" extra={<Avatar shape="square" icon={<ToTopOutlined style={{ color: '#000' }} />} />}>
+                            <Card title="Оролцсон" size="small" extra={<Avatar shape="square" icon={<PushpinOutlined style={{ color: '#000' }} />} />}>
                                 <StatsTable data={orderByAppearance(managers, 10)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
-                            <Card title="Мэргэн бууч" size="small" extra={<Avatar shape="square" icon={<FlagOutlined style={{ color: '#000' }} />} />}>                                
+                            <Card title="Мэргэн бууч" size="small" extra={<Avatar shape="square" icon={<LikeOutlined style={{ color: '#000' }} />} />}>                                
                                 <StatsTable data={orderByTopScorer(managers, 10)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
-                            <Card title="Ванга" size="small" extra={<Avatar shape="square" icon={<EyeOutlined style={{ color: '#000' }} />} />}>
-                                <StatsTable data={orderByVanga(managers, 10)} />
+                            <Card title="МБ-тай таарсан" size="small" extra={<Avatar shape="square" icon={<DislikeOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByTopScorerAway(managers, 10)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
-                            <Card title="Оноо" size="small" extra={<Avatar shape="square" icon={<ProjectOutlined style={{ color: '#000' }} />} />}>
+                            <Card title="Оноо" size="small" extra={<Avatar shape="square" icon={<StarFilled style={{ color: 'yellow' }} />} />}>
                                 <StatsTable data={orderByPoints(managers, 10)} />
                             </Card>
                         </Col>
@@ -452,6 +971,66 @@ const StatsList = (props) => {
                         <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
                             <Card title="Хожигдол" size="small" extra={<Avatar shape="square" icon={<FrownOutlined style={{ color: '#000' }} />} />}>
                                 <StatsTable data={orderByLosses(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж оноо (Лиг)" size="small" extra={<Avatar shape="square" icon={<StarFilled style={{ color: 'yellow' }} />} />}>
+                                <StatsTable data={orderByAveragePoints(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж + (Лиг)" size="small" extra={<Avatar shape="square" icon={<PlusOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageScore(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж - (Лиг)" size="small" extra={<Avatar shape="square" icon={<MinusOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageScoreAway(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж хожил (Лиг)" size="small" extra={<Avatar shape="square" icon={<SmileOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageWins(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж тэнцээ (Лиг)" size="small" extra={<Avatar shape="square" icon={<MehOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageDraws(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж хожигдол (Лиг)" size="small" extra={<Avatar shape="square" icon={<FrownOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageLosses(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж оноо (Тоглолт)" size="small" extra={<Avatar shape="square" icon={<StarFilled style={{ color: 'yellow' }} />} />}>
+                                <StatsTable data={orderByAverageMatchPoints(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж + (Тоглолт)" size="small" extra={<Avatar shape="square" icon={<PlusOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageMatchScore(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Дундаж - (Тоглолт)" size="small" extra={<Avatar shape="square" icon={<MinusOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByAverageMatchScoreAway(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Хожлийн хувь" size="small" extra={<Avatar shape="square" icon={<SmileOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByMatchWinRate(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Тэнцээний хувь" size="small" extra={<Avatar shape="square" icon={<MehOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByMatchDrawRate(managers, 10)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} lg={6} xl={4} style={{ padding: '8px' }}>                                
+                            <Card title="Хожигдлын хувь" size="small" extra={<Avatar shape="square" icon={<FrownOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByMatchLossRate(managers, 10)} />
                             </Card>
                         </Col>                    
                     </Row>                                                                         

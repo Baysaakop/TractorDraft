@@ -46,7 +46,7 @@ const columns = [
             compare: (a, b) => b.losses - a.losses,
         },
         responsive: ['md'],
-    },    
+    },        
     {
         title: '+',
         dataIndex: 'score',
@@ -57,12 +57,39 @@ const columns = [
         responsive: ['md'],
     },
     {
+        title: '-',
+        dataIndex: 'score_away',
+        key: 'score_away',
+        sorter: {
+            compare: (a, b) => b.score_away - a.score_away,            
+        },
+        responsive: ['md'],
+    },
+    {
         title: 'Оноо',
         dataIndex: 'points',
         key: 'points',
         sorter: {
             compare: (a, b) => b.points - a.points,
         },        
+    },    
+    {
+        title: 'Мэргэн Бууч',
+        dataIndex: 'topscorer',
+        key: 'topscorer',
+        sorter: {
+            compare: (a, b) => b.topscorer - a.topscorer,            
+        },
+        responsive: ['md'],
+    },
+    {
+        title: 'МБ-н Эсрэг',
+        dataIndex: 'topscorer_away',
+        key: 'topscorer_away',
+        sorter: {
+            compare: (a, b) => b.topscorer_away - a.topscorer_away,            
+        },
+        responsive: ['md'],
     },
 ];
 

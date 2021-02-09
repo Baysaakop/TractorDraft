@@ -142,6 +142,36 @@ const ManagerList = (props) => {
         return res
     }
 
+    function getTopScorer(manager) {
+        let res = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_topscorer
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_topscorer
+            }
+        }
+        return res
+    }
+
+    function getTopScorerAway(manager) {
+        let res = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_topscorer_away
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_topscorer_away
+            }
+        }
+        return res
+    }
+
     function orderByChamp(data) {
         return data.sort((a, b) => getChampion(b) - getChampion(a))
     }
@@ -160,6 +190,14 @@ const ManagerList = (props) => {
 
     function orderByScoreAway(data) {
         return data.sort((a, b) => getScoreAway(b) - getScoreAway(a))
+    }
+
+    function orderByTopScorer(data) {
+        return data.sort((a, b) => getTopScorer(b) - getTopScorer(a))
+    }
+
+    function orderByTopScorerAway(data) {
+        return data.sort((a, b) => getTopScorerAway(b) - getTopScorerAway(a))
     }
 
     function orderByWin(data) {
@@ -199,6 +237,12 @@ const ManagerList = (props) => {
                 break;
             case "loss": 
                 setManagers(orderByLoss(managers))
+                break;
+            case "topscorer": 
+                setManagers(orderByTopScorer(managers))
+                break;
+            case "topscoreraway": 
+                setManagers(orderByTopScorerAway(managers))
                 break;
             default:
                 setManagers(orderByChamp(managers))
@@ -242,6 +286,8 @@ const ManagerList = (props) => {
                             <Select.Option value="win">Хожил</Select.Option>
                             <Select.Option value="draw">Тэнцээ</Select.Option>
                             <Select.Option value="loss">Хожигдол</Select.Option>
+                            <Select.Option value="topscorer">Мэргэн бууч</Select.Option>
+                            <Select.Option value="topscoreraway">МБ-н эсрэг</Select.Option>
                         </Select>
                     </div>
                     <div>
@@ -256,11 +302,11 @@ const ManagerList = (props) => {
                     <List
                         grid={{
                             gutter: 16,
-                            xs: 2,
-                            sm: 3,
-                            md: 4,
-                            lg: 5,
-                            xl: 6,
+                            xs: 1,
+                            sm: 2,
+                            md: 3,
+                            lg: 4,
+                            xl: 5,
                             xxl: 6,
                         }}
                         dataSource={managers}
@@ -291,12 +337,23 @@ const ManagerList = (props) => {
                                         </div>
                                     }
                                 >
-                                    <p>Оноо: {getPoints(item)}</p>                                    
-                                    <p>Хожил: {getWins(item)}</p>
-                                    <p>Тэнцээ: {getDraws(item)}</p>
-                                    <p>Хожигдол: {getLosses(item)}</p>
-                                    <p>Авсан: {getScore(item)}</p>
-                                    <p>Алдсан: {getScoreAway(item)}</p>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Оноо: {getPoints(item)}</p>                                    
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Авсан: {getScore(item)}</p>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Хожил: {getWins(item)}</p>                                        
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Алдсан: {getScoreAway(item)}</p>
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Тэнцээ: {getDraws(item)}</p>
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Мэргэн бууч: {getTopScorer(item)}</p>                                        
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>Хожигдол: {getLosses(item)}</p>                                                                            
+                                        <p style={{ border: '1px solid #cecece', borderRadius: '10px', padding: '4px' }}>МБ-н эсрэг: {getTopScorerAway(item)}</p>
+                                    </div>
+                                                                    
                                 </Card>
                                 </a>
                             </List.Item>

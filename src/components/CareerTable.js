@@ -48,6 +48,16 @@ const columns = [
         dataIndex: 'points',  
     },
     {
+        title: 'МБууч',
+        dataIndex: 'topscorer',
+        responsive: ['sm'],
+    },
+    {
+        title: 'МБууч-н эсрэг',
+        dataIndex: 'topscorer_away',
+        responsive: ['sm'],
+    },
+    {
         title: 'Баг',
         dataIndex: 'name',  
         responsive: ['sm'],

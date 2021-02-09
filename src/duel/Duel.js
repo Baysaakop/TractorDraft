@@ -19,7 +19,7 @@ const Duel = (props) => {
     }, []); 
 
     function getMatches() {
-        return matches.filter(x => (x.home_team.id === props.manager.id && x.away_team.id === props.opponent.id) || (x.home_team.id === props.opponent.id && x.away_team.id === props.manager.id))
+        return matches.filter(x => (x.home_score > 0 && x.away_score > 0) && ((x.home_team.id === props.manager.id && x.away_team.id === props.opponent.id) || (x.home_team.id === props.opponent.id && x.away_team.id === props.manager.id)))
     }    
 
     return (

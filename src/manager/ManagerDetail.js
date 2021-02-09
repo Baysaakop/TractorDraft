@@ -93,6 +93,21 @@ const ManagerDetail = (props) => {
         return res
     }
 
+    function getTopScorerAway(manager, level) {        
+        let res = 0
+        if (level === 0) {
+            manager.career.forEach(career => {
+                res += career.total_topscorer_away
+            })
+        } else {
+            let career = manager.career.find(x => x.level === level)
+            if (career) {
+                res = career.total_topscorer_away
+            }
+        }
+        return res
+    }
+
     function getVanga(manager, level) {        
         let res = 0
         if (level === 0) {
@@ -201,18 +216,20 @@ const ManagerDetail = (props) => {
     function getAverageScore(manager, level) {
         let res = 0
         let count = 0
+        let list 
         if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_score
-                count += career.total_appearance
-            })
+            list = leagues.filter(x => x.isFinished === true)            
         } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_score
-                count = career.total_appearance
-            }
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
         }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.score
+                    count += 1
+                }
+            })
+        })
         if (count === 0) {
             return 0
         }
@@ -223,18 +240,20 @@ const ManagerDetail = (props) => {
     function getAverageScoreAway(manager, level) {
         let res = 0
         let count = 0
+        let list 
         if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_score_away
-                count += career.total_appearance
-            })
+            list = leagues.filter(x => x.isFinished === true)            
         } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_score_away
-                count = career.total_appearance
-            }
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
         }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.score_away
+                    count += 1
+                }
+            })
+        })
         if (count === 0) {
             return 0
         }
@@ -245,40 +264,20 @@ const ManagerDetail = (props) => {
     function getAveragePoints(manager, level) {
         let res = 0
         let count = 0
+        let list 
         if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_point
-                count += career.total_appearance
-            })
+            list = leagues.filter(x => x.isFinished === true)            
         } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_point
-                count = career.total_appearance
-            }
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
         }
-        if (count === 0) {
-            return 0
-        }
-        res = res / count
-        return res.toFixed(1)
-    }
-
-    function getAverageTopScorer(manager, level) {
-        let res = 0
-        let count = 0
-        if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_topscorer
-                count += career.total_appearance
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.points
+                    count += 1
+                }
             })
-        } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_topscorer
-                count = career.total_appearance
-            }
-        }
+        })
         if (count === 0) {
             return 0
         }
@@ -289,18 +288,20 @@ const ManagerDetail = (props) => {
     function getAverageWins(manager, level) {
         let res = 0
         let count = 0
+        let list 
         if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_win
-                count += career.total_appearance
-            })
+            list = leagues.filter(x => x.isFinished === true)            
         } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_win
-                count = career.total_appearance
-            }
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
         }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.wins
+                    count += 1
+                }
+            })
+        })
         if (count === 0) {
             return 0
         }
@@ -311,18 +312,20 @@ const ManagerDetail = (props) => {
     function getAverageDraws(manager, level) {
         let res = 0
         let count = 0
+        let list 
         if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_draw
-                count += career.total_appearance
-            })
+            list = leagues.filter(x => x.isFinished === true)            
         } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_draw
-                count = career.total_appearance
-            }
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
         }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.draws
+                    count += 1
+                }
+            })
+        })
         if (count === 0) {
             return 0
         }
@@ -333,18 +336,20 @@ const ManagerDetail = (props) => {
     function getAverageLosses(manager, level) {
         let res = 0
         let count = 0
+        let list 
         if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_loss
-                count += career.total_appearance
-            })
+            list = leagues.filter(x => x.isFinished === true)            
         } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_loss
-                count = career.total_appearance
-            }
+            list = leagues.filter(x => x.isFinished === true && x.level === level)
         }
+        list.forEach(l => {
+            l.table.teams.forEach(t => {                    
+                if (t.manager.id === manager.id) {
+                    res += t.losses
+                    count += 1
+                }
+            })
+        })
         if (count === 0) {
             return 0
         }
@@ -358,41 +363,41 @@ const ManagerDetail = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_score
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_score
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9)
+        res = res / count
         return res.toFixed(1)
     }
 
-    function getAverageMatchScoreAway() {
+    function getAverageMatchScoreAway(manager, level) {
         let res = 0
         let count = 0
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_score_away
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_score_away
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9)
+        res = res / count
         return res.toFixed(1)
     }
 
@@ -402,19 +407,19 @@ const ManagerDetail = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_point
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_point
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9)
+        res = res / count
         return res.toFixed(1)
     }
 
@@ -424,19 +429,19 @@ const ManagerDetail = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_topscorer
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_topscorer
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9) * 100
+        res = res / count * 100
         return res.toFixed(1)
     }
 
@@ -446,19 +451,19 @@ const ManagerDetail = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_win
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_win
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9) * 100
+        res = res / count * 100
         return res.toFixed(1)
     }
 
@@ -468,19 +473,19 @@ const ManagerDetail = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_draw
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_draw
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9) * 100
+        res = res / count * 100
         return res.toFixed(1)
     }
 
@@ -490,34 +495,20 @@ const ManagerDetail = (props) => {
         if (level === 0) {
             manager.career.forEach(career => {
                 res += career.total_loss
-                count += career.total_appearance
+                count += career.total_match
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
                 res = career.total_loss
-                count = career.total_appearance
+                count = career.total_match
             }
         }
         if (count === 0) {
             return 0
         }
-        res = res / (count * 9) * 100
+        res = res / count * 100
         return res.toFixed(1)
-    }
-
-    function getTeamScoreAway(league, manager) {
-        let res = 0
-        league.gameweeks.forEach(week => {
-            week.matches.forEach(match => {
-                if (match.home_team.id === manager.id) {
-                    res += match.away_score
-                } else if (match.away_team.id === manager.id) {
-                    res += match.home_score
-                }
-            })
-        })
-        return res
     }
 
     function getTeams() {
@@ -532,7 +523,9 @@ const ManagerDetail = (props) => {
                     rank: team.rank,
                     points: team.points,
                     score: team.score,
-                    score_away: getTeamScoreAway(league, team.manager),
+                    score_away: team.score_away,
+                    topscorer: team.topscorer,
+                    topscorer_away: team.topscorer_away,                    
                     wins: team.wins,
                     draws: team.draws,
                     losses: team.losses,
@@ -671,7 +664,7 @@ const ManagerDetail = (props) => {
                                     <Statistic title="Нийт хожигдол" value={getLosses(manager, level)} />    
                                 </Col>
                                 <Col span={6} style={{ textAlign: 'center', border: '1px solid #f1f1f1' }}>
-                                    <Statistic title="Дундаж МБ" value={getAverageTopScorer(manager, level)} />    
+                                    <Statistic title="МБ-н эсрэг" value={getTopScorerAway(manager, level)} />    
                                 </Col>
                                 <Col span={6} style={{ textAlign: 'center', border: '1px solid #f1f1f1' }}>
                                     <Statistic title="Дундаж хожил" value={getAverageWins(manager, level)} />    
