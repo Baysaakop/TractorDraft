@@ -17,8 +17,7 @@ const ManagerDetail = (props) => {
         axios({
             method: 'GET',
             url: `${api.managers}/${id}`
-        }).then(res => {            
-            console.log(manager)             
+        }).then(res => {                        
             setManager(res.data)                 
         }).catch(err => {
             console.log(err.message)

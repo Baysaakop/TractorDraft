@@ -11,7 +11,9 @@ const ManagerList = (props) => {
     const [sortType, setSortType] = useState('champ');
     const [level, setLevel] = useState(0);
 
-    useEffect(() => {      
+    useEffect(getData, [])    
+
+    function getData() {
         axios({
             method: 'GET',
             url: `${api.managers}`
@@ -19,8 +21,8 @@ const ManagerList = (props) => {
             setManagers(orderByChamp(res.data))
         }).catch(err => {
             console.log(err.message)
-        });                      
-    }, []);    
+        })
+    }
 
     function getChampion(manager) {
         let res = 0
@@ -263,7 +265,7 @@ const ManagerList = (props) => {
 
     return (
         <div>
-            { managers ? (                        
+            { managers ? (                                    
             <div>
                 <Breadcrumb>
                     <Breadcrumb.Item>

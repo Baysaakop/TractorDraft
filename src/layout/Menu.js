@@ -39,11 +39,6 @@ function CustomMenu (props) {
         setCollapsed(!collapsed);
     }    
 
-    function signout() {
-        props.logout()
-        props.history.goBack()
-    }
-
     return (
         <div>
             <div className="logo" style={{ marginLeft: '5%' }}>

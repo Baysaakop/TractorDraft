@@ -5,49 +5,10 @@ import axios from 'axios';
 import api from '../api';
 import Avatar from 'antd/lib/avatar/avatar';
 
-const data = [
-    {
-        title: 'Баясаа',
-        points: '100 оноо',
-        wins: '14 хожил',
-        score: '1024 оноо',
-        image: "https://resources.premierleague.com/premierleague/badges/50/t14.png"
-    },
-    {
-        title: 'Мөнхсайхан',
-        points: '56 оноо',
-        wins: '13 хожил',
-        score: '1022 оноо',
-        image: "https://resources.premierleague.com/premierleague/badges/50/t43.png"
-    },
-    {
-        title: 'Зундуй',
-        points: '49 оноо',
-        wins: '13 хожил',
-        score: '1016 оноо',
-        image: "https://resources.premierleague.com/premierleague/badges/50/t14.png"
-    },
-    {
-        title: 'Луугий',
-        points: '47 оноо',
-        wins: '12 хожил',
-        score: '1005 оноо',
-        image: "https://resources.premierleague.com/premierleague/badges/50/t8.png"
-    },
-    {
-        title: 'Төгсөө',
-        points: '47 оноо',
-        wins: '12 хожил',
-        score: '996 оноо',
-        image: "https://resources.premierleague.com/premierleague/badges/50/t3.png"
-    }
-  ];
-
 function Home (props) {    
 
     const [leagues, setLeagues] = useState();
-    const [managers, setManagers] = useState();
-    const [level, setLevel] = useState(0);
+    const [managers, setManagers] = useState();    
 
     useEffect(() => {
         axios({
@@ -137,7 +98,7 @@ function Home (props) {
     }
 
     function onChangeLevel(e) {
-        setLevel(e.target.value)     
+        console.log(e.target.value)     
     }
 
     return (

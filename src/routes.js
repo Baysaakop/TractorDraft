@@ -18,6 +18,7 @@ import Season19 from './season/Season19';
 import SeasonCreate from './season/SeasonCreate';
 import Logout from './user/Logout';
 import GameweekUpdate from './duel/GameweekUpdate';
+import BlogCreate from './blog/BlogCreate';
 
 function BaseRouter () {
     return (
@@ -46,6 +47,8 @@ function BaseRouter () {
             <Route exact path="/compare" component={DuelCompare} />
             {/* Stats */}
             <Route exact path="/stats" component={StatsList} />                        
+            {/* Blog */}
+            <Route exact path="/newpost" component={BlogCreate} />
         </Switch>
     )    
 }

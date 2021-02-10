@@ -1,4 +1,4 @@
-import { DislikeOutlined, EyeOutlined, FlagOutlined, FrownOutlined, LikeOutlined, MehOutlined, MinusOutlined, PlusOutlined, ProjectOutlined, PushpinOutlined, ScheduleOutlined, SmileOutlined, StarFilled, StarOutlined, ToTopOutlined, TrophyFilled, TrophyOutlined } from '@ant-design/icons';
+import { DislikeOutlined, FrownOutlined, LikeOutlined, MehOutlined, MinusOutlined, PlusOutlined, PushpinOutlined, SmileOutlined, StarFilled, TrophyFilled, TrophyOutlined } from '@ant-design/icons';
 import { Breadcrumb, Card, Col, Radio, Row, Spin } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import React, { useEffect, useState } from 'react';
@@ -91,21 +91,6 @@ const StatsList = (props) => {
         return res
     }
 
-    function getMatch(manager, level) {
-        let res = 0
-        if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_match
-            })
-        } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_match
-            }
-        }
-        return res
-    }
-
     function getTopScorer(manager, level) {        
         let res = 0
         if (level === 0) {
@@ -134,22 +119,7 @@ const StatsList = (props) => {
             }
         }
         return res
-    }
-
-    function getVanga(manager, level) {        
-        let res = 0
-        if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_vanga
-            })
-        } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_vanga
-            }
-        }
-        return res
-    }
+    }   
 
     function getPoints(manager, level) {
         let res = 0
@@ -451,28 +421,6 @@ const StatsList = (props) => {
         return res.toFixed(1)
     }
 
-    function getMatchTopScorerRate(manager, level) {
-        let res = 0
-        let count = 0
-        if (level === 0) {
-            manager.career.forEach(career => {
-                res += career.total_topscorer
-                count += career.total_match
-            })
-        } else {
-            let career = manager.career.find(x => x.level === level)
-            if (career) {
-                res = career.total_topscorer
-                count = career.total_match
-            }
-        }
-        if (count === 0) {
-            return 0
-        }
-        res = res / count * 100
-        return res.toFixed(1)
-    }
-
     function getMatchWinRate(manager, level) {
         let res = 0
         let count = 0
@@ -621,21 +569,7 @@ const StatsList = (props) => {
             result.push(item)
         }
         return result
-    }
-
-    function orderByVanga(data, size) {
-        let result = []
-        let sorted = data.sort((a, b) => getVanga(b, level) - getVanga(a, level))
-        for (let i = 0; i < size; i++) {
-            let item = { 
-                rank: (i + 1),
-                manager: sorted[i],
-                number: getVanga(sorted[i], level)  
-            }
-            result.push(item)
-        }
-        return result
-    }  
+    } 
     
     function orderByPoints(data, size) {
         let result = []
