@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined,    QuestionCircleOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined,    QuestionCircleOutlined, EditOutlined, PlusOutlined, ReadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import api from '../api';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -131,9 +131,14 @@ function CustomMenu (props) {
                     <Menu.Item key="stats" icon={<AreaChartOutlined />}>
                         <Link to="/stats">Статистик</Link>
                     </Menu.Item>
-                    <Menu.Item key="news" icon={<EditOutlined />}>
-                        <Link to="/news">Нийтлэл</Link>
-                    </Menu.Item>                                                                 
+                    <SubMenu key="posts" icon={<ReadOutlined />} title="Мэдээлэл">
+                        <Menu.Item key="news" icon={<ReadOutlined />}>
+                            <Link to="/posts">Нийтлэлүүд</Link>
+                        </Menu.Item>
+                        <Menu.Item key="newpost" icon={<EditOutlined />}>
+                            <Link to="/newpost">Нийтлэл оруулах</Link>
+                        </Menu.Item>
+                    </SubMenu>                                                                                     
                     { user && user !== null ? (
                         <SubMenu key="user" icon={<UserOutlined />} title={user.username} style={{ float: 'right' }} >
                             <Menu.Item key="profile" icon={<ProfileOutlined />} >

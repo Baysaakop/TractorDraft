@@ -18,6 +18,8 @@ import Season19 from './season/Season19';
 import SeasonCreate from './season/SeasonCreate';
 import Logout from './user/Logout';
 import GameweekUpdate from './duel/GameweekUpdate';
+import Blogs from './blog/Blogs';
+import BlogDetail from './blog/BlogDetail';
 import BlogCreate from './blog/BlogCreate';
 
 function BaseRouter () {
@@ -48,6 +50,8 @@ function BaseRouter () {
             {/* Stats */}
             <Route exact path="/stats" component={StatsList} />                        
             {/* Blog */}
+            <Route exact path="/posts" component={Blogs} />
+            <Route exact path="/posts/:postID" component={BlogDetail} />
             <Route exact path="/newpost" component={BlogCreate} />
         </Switch>
     )    

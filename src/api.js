@@ -18,6 +18,7 @@ const api = {
     duels: baseURL + 'api/fantasy/duels',    
     league19teams: baseURL + 'api/fantasy/league19teams',    
     league19: baseURL + 'api/fantasy/league19',    
+    posts: baseURL + 'api/fantasy/posts',    
 }
 
 export default api;

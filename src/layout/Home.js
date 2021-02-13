@@ -5,12 +5,24 @@ import axios from 'axios';
 import api from '../api';
 import Avatar from 'antd/lib/avatar/avatar';
 
-function Home (props) {    
+const { Paragraph } = Typography;
 
+function Home (props) {    
+    const [ellipsis, setEllipsis] = useState(true);
+    const [posts, setPosts] = useState();
     const [leagues, setLeagues] = useState();
     const [managers, setManagers] = useState();    
 
     useEffect(() => {
+        axios({
+            method: 'GET',
+            url: `${api.posts}/`
+        }).then(res => {            
+            console.log(res.data)
+            setPosts(res.data)
+        }).catch(err => {
+            console.log(err.message)
+        })
         axios({
             method: 'GET',
             url: `${api.leagues}/`
@@ -97,53 +109,66 @@ function Home (props) {
         return list.sort((a, b) => b.score - a.score).slice(0, 5)
     }
 
+    function getDate(date) {
+        let d = new Date(date);    
+        return d.getFullYear().toString() + "/" + (d.getMonth() + 1).toString() + "/" + d.getDate();
+    }
+
     function onChangeLevel(e) {
         console.log(e.target.value)     
     }
 
     return (
         <div>
-            { leagues && managers ? (
+            { posts && leagues && managers ? (
                 <div>
                     <Row gutter={16}>
                         <Col sm={24} md={16}>
-                            <Card hoverable style={{ backgroundImage: "linear-gradient(to right, #43e97b 0%, #38f9d7 100%)" }}>
-                                <Row gutter={16} style={{ width: '100%' }}>                        
-                                    <Col sm={24} md={12}>
-                                        <img src="https://resources.premierleague.com/photos/2020/08/22/e29e779e-6d19-4b7f-8b01-659de3e405a5/son.jpg?width=930&height=620" alt="thumbnail" style={{ width: '100%', height: 'auto' }} />
-                                    </Col>
-                                    <Col sm={24} md={12}>
-                                        <Typography.Title level={1}>Онцлох тоглогч: Сон Хён Мин</Typography.Title>
-                                        <Typography.Text>Сон Хёнг-Мин (сол. 손흥민, 1992 оны долоодугаар сарын 8-нд Канвондо аймгийн Чунчон хотод төрсөн) — Өмнөд Солонгосын хөлбөмбөгчин бөгөөд Тоттенхэм Хотспур болон Өмнөд Солонгосын шигшээд тоглодог.</Typography.Text>                                                        
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px' }}>
-                                            <strong>06/02/2021</strong>
-                                            <Button type="primary">Дэлгэрэнгүй</Button>
-                                        </div>                        
-                                    </Col>
-                                </Row>
-                            </Card>
-                            <Card hoverable style={{ backgroundImage: "linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)", marginTop: '16px' }}>
-                                <Row gutter={16} style={{ width: '100%' }}>
-                                    <Col sm={24} md={12}>
-                                        <Typography.Title level={1}>Тойргийн дараах</Typography.Title>
-                                        <Typography.Text>Анхны хожлоо арай гэж авсан тойрог боллоо. Бүр 1 оноогоор хэмжиж шүү. Солилцоогоор авсан Калверт-Левин болон чөлөөт агент Маркос Алонсо нар хожилд хөтөлжээ. Харин Тэлмэнгийн хувьд багийнхаа довтолгоонд бус Челси хамгаалалтанд итгээд Мендиг гаргаад үзсэн бол намайг 1 оноогоор туух байждээ. Ингээд цувралын харьцаа 1-1</Typography.Text>                                                        
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px' }}>
-                                            <strong>06/02/2021</strong>
-                                            <Button type="primary">Дэлгэрэнгүй</Button>
-                                        </div>                        
-                                    </Col>
-                                    <Col sm={24} md={12}>
-                                        <img src="https://resources.premierleague.com/photos/2020/11/19/fe0e782e-09ea-4dad-aef8-90b3949122ba/1229281405.jpg?width=930&height=620" alt="thumbnail" style={{ width: '100%', height: 'auto' }} />
-                                    </Col>                        
-                                </Row>
-                            </Card>
+                            <a href={`/posts/${posts[0].id}`}>
+                                <Card hoverable style={{ backgroundImage: "linear-gradient(to right, #43e97b 0%, #38f9d7 100%)" }}>
+                                    <Row gutter={16} style={{ width: '100%' }}>                        
+                                        <Col sm={24} md={12}>
+                                            <img src={posts[0].thumbnail} alt="thumbnail" style={{ width: '100%', height: 'auto' }} />
+                                        </Col>
+                                        <Col sm={24} md={12}>
+                                            <Typography.Title level={2}>{posts[0].title}</Typography.Title>
+                                            <Paragraph ellipsis={ellipsis ? { rows: 4, expandable: false, symbol: 'more' } : false}>                                                
+                                                <div dangerouslySetInnerHTML={{__html: posts[0].content }} />
+                                            </Paragraph>                                        
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px' }}>
+                                                <strong>{getDate(posts[0].created_at)}</strong>
+                                                <Button type="primary">Дэлгэрэнгүй</Button>
+                                            </div>                        
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </a>
+                            <a href={`/posts/${posts[1].id}`}>
+                                <Card hoverable style={{ backgroundImage: "linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)", marginTop: '16px' }}>
+                                    <Row gutter={16} style={{ width: '100%' }}>
+                                        <Col sm={24} md={12}>
+                                            <Typography.Title level={2}>{posts[1].title}</Typography.Title>
+                                            <Paragraph ellipsis={ellipsis ? { rows: 4, expandable: false, symbol: 'more' } : false}>
+                                                <div dangerouslySetInnerHTML={{__html: posts[1].content }} />
+                                            </Paragraph>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px' }}>
+                                                <strong>{getDate(posts[0].created_at)}</strong>
+                                                <Button type="primary">Дэлгэрэнгүй</Button>
+                                            </div>                        
+                                        </Col>
+                                        <Col sm={24} md={12}>
+                                            <img src={posts[1].thumbnail} alt="thumbnail" style={{ width: '100%', height: 'auto' }} />
+                                        </Col>                        
+                                    </Row>
+                                </Card>
+                            </a>
                         </Col>
                         <Col sm={24} md={8}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '16px' }}>
                                 <Typography.Title level={4}>Лигийн хүснэгт:</Typography.Title>
-                                <Radio.Group onChange={onChangeLevel} defaultValue={2}>
+                                <Radio.Group onChange={onChangeLevel} defaultValue={1}>
                                     <Radio.Button value={1}>Дээд</Radio.Button>
-                                    <Radio.Button value={2}>Чэмпионшип</Radio.Button>                            
+                                    <Radio.Button value={2} disabled>Чэмпионшип</Radio.Button>                            
                                 </Radio.Group>
                             </div>
                             <LeagueTableMini id={leagues ? leagues[leagues.length - 1].id : 1} />
