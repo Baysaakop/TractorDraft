@@ -833,13 +833,13 @@ const StatsList = (props) => {
                 <div>
                     <Breadcrumb>
                         <Breadcrumb.Item>
-                            <a href="/">Нүүр</a>
+                            <a href="/">Нүүр хуудас</a>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
                             Статистик
                         </Breadcrumb.Item>
                     </Breadcrumb>            
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{ margin: '16px 0' }}>
                         <Radio.Group onChange={onChangeLevel} defaultValue={level}>
                             <Radio.Button value={1}>Дээд</Radio.Button>
                             <Radio.Button value={2}>Чэмпионшип</Radio.Button>

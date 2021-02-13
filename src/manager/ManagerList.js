@@ -269,13 +269,20 @@ const ManagerList = (props) => {
             <div>
                 <Breadcrumb>
                     <Breadcrumb.Item>
-                        <a href="/">Нүүр</a>
+                        <a href="/">Нүүр хуудас</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         Менежер
                     </Breadcrumb.Item>
                 </Breadcrumb>
                 <div style={{ margin: '16px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div>
+                        <Radio.Group onChange={onChangeLevel} defaultValue={0}>
+                            <Radio.Button value={1}>Дээд</Radio.Button>
+                            <Radio.Button value={2}>Чэмпионшип</Radio.Button>
+                            <Radio.Button value={0}>Нийт</Radio.Button>
+                        </Radio.Group>
+                    </div>
                     <div>
                         <strong>Эрэмбэлэх: </strong>
                         <Select defaultValue={sortType} style={{ width: 200 }} onChange={handleSort}>
@@ -291,14 +298,7 @@ const ManagerList = (props) => {
                             <Select.Option value="topscorer">Мэргэн бууч</Select.Option>
                             <Select.Option value="topscoreraway">МБ-н эсрэг</Select.Option>
                         </Select>
-                    </div>
-                    <div>
-                        <Radio.Group onChange={onChangeLevel} defaultValue={0}>
-                            <Radio.Button value={1}>Дээд</Radio.Button>
-                            <Radio.Button value={2}>Чэмпионшип</Radio.Button>
-                            <Radio.Button value={0}>Нийт</Radio.Button>
-                        </Radio.Group>
-                    </div>
+                    </div>                    
                 </div>
                 <div style={{ margin: '16px 0' }}>
                     <List

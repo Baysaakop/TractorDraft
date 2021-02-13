@@ -552,7 +552,7 @@ const ManagerDetail = (props) => {
             <div>
                 <Breadcrumb>
                     <Breadcrumb.Item>
-                        <a href="/">Нүүр</a>
+                        <a href="/">Нүүр хуудас</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         <a href="/managers">Менежер</a>

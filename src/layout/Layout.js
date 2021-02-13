@@ -79,7 +79,9 @@ function CustomLayout (props) {
             <Footer className="footer">
                 <div>
                     <Tooltip title="Facebook">
-                        <Button shape="circle" icon={<FacebookFilled />} style={{ margin: '8px' }} size="large" /> 
+                        <a href="https://www.facebook.com/groups/126603424626976">
+                            <Button shape="circle" icon={<FacebookFilled />} style={{ margin: '8px' }} size="large" /> 
+                        </a>
                     </Tooltip>
                     <Tooltip title="Twitter">
                         <Button shape="circle" icon={<TwitterOutlined />} style={{ margin: '8px' }} size="large" /> 
@@ -91,7 +93,9 @@ function CustomLayout (props) {
                         <Button shape="circle" icon={<YoutubeFilled />} style={{ margin: '8px' }} size="large" /> 
                     </Tooltip>
                     <Tooltip title="Github">
-                        <Button shape="circle" icon={<GithubFilled />} style={{ margin: '8px' }} size="large" /> 
+                        <a href="https://github.com/Baysaakop/TractorDraft">
+                            <Button shape="circle" icon={<GithubFilled />} style={{ margin: '8px' }} size="large" /> 
+                        </a>
                     </Tooltip>
                     <p>
                         © 2021 Трактор Фантази Лиг. Системийг хөгжүүлсэн On Plus ХХК

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined,    QuestionCircleOutlined, EditOutlined, PlusOutlined, ReadOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined, QuestionCircleOutlined, EditOutlined, PlusOutlined, ReadOutlined, InfoCircleOutlined, SettingOutlined, HistoryOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import api from '../api';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -57,31 +57,51 @@ function CustomMenu (props) {
                         defaultSelectedKeys={[current]}
                     >
                         <Menu.Item key="home" icon={<HomeOutlined />}>
-                            <Link to="/">Home</Link>
+                            <Link to="/">Нүүр</Link>
                         </Menu.Item>
-                        <Menu.Item key="seasons" icon={<CalendarOutlined />}>
-                            <Link to="/seasons">Seasons</Link>
-                        </Menu.Item>
-                        <Menu.Item key="managers" icon={<TeamOutlined />}>
-                            <Link to="/managers">Managers</Link>
-                        </Menu.Item>
+                        <SubMenu key="help" icon={<QuestionCircleOutlined />} title="Тусламж">
+                            <Menu.Item key="about" icon={<InfoCircleOutlined />}>
+                                <Link to="/about">Лигийн тухай</Link>
+                            </Menu.Item>
+                            <Menu.Item key="settings" icon={<SettingOutlined />}>
+                                <Link to="/settings">Системийн дэлгэрэнгүй</Link>
+                            </Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="seasons" icon={<CalendarOutlined />} title="Улирал">
+                            <Menu.Item key="seasons" icon={<CalendarOutlined />}>
+                                <Link to="/seasons">Улирал</Link>
+                            </Menu.Item>
+                            <Menu.Item key="season19" icon={<HistoryOutlined />}>
+                                <Link to="/season19">19-20 улирал</Link>
+                            </Menu.Item>
+                        </SubMenu>
+                        <SubMenu key="managers" icon={<TeamOutlined />} title="Менежер">
+                            <Menu.Item key="managers" icon={<TeamOutlined />}>
+                                <Link to="/managers">Менежер</Link>
+                            </Menu.Item>
+                            <Menu.Item key="compare" icon={<ProjectOutlined />}>
+                                <Link to="/compare">Харьцуулалт</Link>
+                            </Menu.Item>
+                        </SubMenu>                    
                         <Menu.Item key="stats" icon={<AreaChartOutlined />}>
-                            <Link to="/stats">Statistic</Link>
-                        </Menu.Item>             
-                        <Menu.Item key="compare" icon={<ProjectOutlined />}>
-                            <Link to="/compare">Харьцуулалт</Link>
-                        </Menu.Item>  
-                        <Menu.Item key="season19" icon={<BookOutlined />}>
-                            <Link to="/season19">19-20 улирал</Link>
-                        </Menu.Item>         
+                            <Link to="/stats">Статистик</Link>
+                        </Menu.Item>
+                        <SubMenu key="posts" icon={<ReadOutlined />} title="Мэдээлэл">
+                            <Menu.Item key="news" icon={<ReadOutlined />}>
+                                <Link to="/posts">Нийтлэлүүд</Link>
+                            </Menu.Item>
+                            <Menu.Item key="newpost" icon={<EditOutlined />}>
+                                <Link to="/newpost">Нийтлэл оруулах</Link>
+                            </Menu.Item>
+                        </SubMenu>                                                                                     
                         { user && user !== null ? (
                             <SubMenu key="user" icon={<UserOutlined />} title={user.username} >
                                 <Menu.Item key="profile" icon={<ProfileOutlined />} >
                                     <Link to="/profile">Хэрэглэгч</Link>
                                 </Menu.Item>
                                 { user.profile.role === "1" ? (
-                                    <Menu.Item key="addseason" icon={<PlusOutlined />} >
-                                        <Link to="/addseason">Улирал нэмэх</Link>
+                                    <Menu.Item key="newseason" icon={<PlusOutlined />} >
+                                        <Link to="/newseason">Улирал нэмэх</Link>
                                     </Menu.Item>
                                 ) : (
                                     <></>
@@ -94,7 +114,7 @@ function CustomMenu (props) {
                             <Menu.Item key="login" icon={<LoginOutlined />} >
                                 <Link to="/login">Нэвтрэх</Link>
                             </Menu.Item>
-                        ) }                    
+                        ) }                      
                     </Menu>
                 </div>
             ) : (
@@ -108,15 +128,20 @@ function CustomMenu (props) {
                 >
                     <Menu.Item key="home" icon={<HomeOutlined />}>
                         <Link to="/">Нүүр</Link>
-                    </Menu.Item>
-                    <Menu.Item key="about" icon={<QuestionCircleOutlined />}>
-                        <Link to="/about">Лигийн тухай</Link>
-                    </Menu.Item>
+                    </Menu.Item>                    
+                    <SubMenu key="help" icon={<QuestionCircleOutlined />} title="Тусламж">
+                        <Menu.Item key="about" icon={<InfoCircleOutlined />}>
+                            <Link to="/about">Лигийн тухай</Link>
+                        </Menu.Item>
+                        <Menu.Item key="settings" icon={<SettingOutlined />}>
+                            <Link to="/settings">Системийн дэлгэрэнгүй</Link>
+                        </Menu.Item>
+                    </SubMenu>
                     <SubMenu key="seasons" icon={<CalendarOutlined />} title="Улирал">
                         <Menu.Item key="seasons" icon={<CalendarOutlined />}>
                             <Link to="/seasons">Улирал</Link>
                         </Menu.Item>
-                        <Menu.Item key="season19" icon={<BookOutlined />}>
+                        <Menu.Item key="season19" icon={<HistoryOutlined />}>
                             <Link to="/season19">19-20 улирал</Link>
                         </Menu.Item>
                     </SubMenu>

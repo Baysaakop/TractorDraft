@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './layout/Home';
+import About from './layout/About';
+import Settings from './layout/Settings';
 import Login from './user/Login';
 import Signup from './user/Signup';
 import Profile from './user/Profile';
@@ -26,6 +28,8 @@ function BaseRouter () {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/settings" component={Settings} />
             {/* Item urls */}
             <Route exact path="/items" component={ItemList} />
             <Route exact path="/items/:itemID" component={ItemDetail} />

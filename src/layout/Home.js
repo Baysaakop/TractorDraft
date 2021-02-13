@@ -1,9 +1,9 @@
-import { Button, Card, Col, Divider, Row, Typography, List, Radio, Spin } from 'antd';
+import { Button, Card, Col, Divider, Row, Typography, List, Radio, Spin, Avatar } from 'antd';
 import React, { useEffect, useState } from 'react';
 import LeagueTableMini from '../components/LeagueTableMini';
 import axios from 'axios';
 import api from '../api';
-import Avatar from 'antd/lib/avatar/avatar';
+import CountUp from 'react-countup';
 
 const { Paragraph } = Typography;
 
@@ -112,7 +112,7 @@ function Home (props) {
     function getDate(date) {
         let d = new Date(date);    
         return d.getFullYear().toString() + "/" + (d.getMonth() + 1).toString() + "/" + d.getDate();
-    }
+    }    
 
     function onChangeLevel(e) {
         console.log(e.target.value)     
@@ -120,10 +120,11 @@ function Home (props) {
 
     return (
         <div>
-            { posts && leagues && managers ? (
-                <div>
+            { posts && leagues && managers ? (                
+                <div>                    
                     <Row gutter={16}>
                         <Col sm={24} md={16}>
+                            <Typography.Title level={3}>Шинэ нийтлэлүүд:</Typography.Title>
                             <a href={`/posts/${posts[0].id}`}>
                                 <Card hoverable style={{ backgroundImage: "linear-gradient(to right, #43e97b 0%, #38f9d7 100%)" }}>
                                     <Row gutter={16} style={{ width: '100%' }}>                        
@@ -162,10 +163,13 @@ function Home (props) {
                                     </Row>
                                 </Card>
                             </a>
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '16px 0' }}>
+                                <Button href="/posts" type="primary">Цааш үзэх</Button>
+                            </div>
                         </Col>
                         <Col sm={24} md={8}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '16px' }}>
-                                <Typography.Title level={4}>Лигийн хүснэгт:</Typography.Title>
+                                <Typography.Title level={3}>Лигийн хүснэгт:</Typography.Title>
                                 <Radio.Group onChange={onChangeLevel} defaultValue={1}>
                                     <Radio.Button value={1}>Дээд</Radio.Button>
                                     <Radio.Button value={2} disabled>Чэмпионшип</Radio.Button>                            
@@ -175,7 +179,7 @@ function Home (props) {
                         </Col>
                     </Row>
                     <div style={{ margin: '16px 0' }}>
-                        <Typography.Title level={2}>Тойргийн мэргэн буучид</Typography.Title>
+                        <Typography.Title level={3}>Тойргийн мэргэн буучид</Typography.Title>
                         <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
                         <Row gutter={16}>
                             <Col sm={24} md={12}>
@@ -191,7 +195,7 @@ function Home (props) {
                         </Row>         
                     </div>
                     <div style={{ margin: '16px 0' }}>
-                        <Typography.Title level={2}>Тойргийн өндөр оноонууд</Typography.Title>
+                        <Typography.Title level={3}>Тойргийн өндөр оноонууд</Typography.Title>
                         <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
                         <List
                             grid={{
@@ -206,15 +210,19 @@ function Home (props) {
                             dataSource={getLastWeekTopScorers()}
                             renderItem={item => (
                                 <List.Item>
-                                    <Card hoverable title={item.manager.name} extra={<Avatar shape="square" src={item.manager.image} />}>
-                                        <Typography.Title level={2}>{item.score}</Typography.Title>
-                                    </Card>
+                                    <a href={`/managers/${item.manager.id}`}>
+                                        <Card hoverable title={item.manager.name} extra={<Avatar shape="square" src={item.manager.image} />}>
+                                            <Typography.Title level={2}>
+                                                <CountUp start={0} end={item.score} delay={3} duration={3} />                                                
+                                            </Typography.Title>
+                                        </Card>
+                                    </a>
                                 </List.Item>
                             )}
                         />                
                     </div>            
                     <div style={{ margin: '16px 0' }}>
-                        <Typography.Title level={2}>Улирлыг хожлоор тэргүүлэгчид</Typography.Title>
+                        <Typography.Title level={3}>Лигийг хожлоор тэргүүлэгчид</Typography.Title>
                         <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
                         <List
                             grid={{
@@ -229,15 +237,19 @@ function Home (props) {
                             dataSource={getSeasonTopWinners()}
                             renderItem={item => (
                                 <List.Item>
-                                    <Card hoverable title={item.manager.name} extra={<Avatar shape="square" src={item.manager.image} />}>
-                                        <Typography.Title level={2}>{item.wins}</Typography.Title>
-                                    </Card>
+                                    <a href={`/managers/${item.manager.id}`}>
+                                        <Card hoverable title={item.manager.name} extra={<Avatar shape="square" src={item.manager.image} />}>
+                                            <Typography.Title level={2}>
+                                                <CountUp start={0} end={item.wins} delay={5} duration={3} />  
+                                            </Typography.Title>
+                                        </Card>
+                                    </a>
                                 </List.Item>
                             )}
                         />                
                     </div>
                     <div style={{ margin: '16px 0' }}>
-                        <Typography.Title level={2}>Улирлыг оноогоор тэргүүлэгчид</Typography.Title>
+                        <Typography.Title level={3}>Лигийг оноогоор тэргүүлэгчид</Typography.Title>
                         <Divider style={{ marginTop: '0px', marginBottom: '16px' }} />
                         <List
                             grid={{
@@ -252,9 +264,13 @@ function Home (props) {
                             dataSource={getSeasonTopScorers()}
                             renderItem={item => (
                                 <List.Item>
-                                    <Card hoverable title={item.manager.name} extra={<Avatar shape="square" src={item.manager.image} />}>
-                                        <Typography.Title level={2}>{item.score}</Typography.Title>
-                                    </Card>
+                                    <a href={`/managers/${item.manager.id}`}>
+                                        <Card hoverable title={item.manager.name} extra={<Avatar shape="square" src={item.manager.image} />}>
+                                            <Typography.Title level={2}>
+                                                <CountUp start={0} end={item.score} delay={7} duration={3} />  
+                                            </Typography.Title>
+                                        </Card>
+                                    </a>
                                 </List.Item>
                             )}
                         />                

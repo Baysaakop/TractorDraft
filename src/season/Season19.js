@@ -113,7 +113,7 @@ const Season19 = (props) => {
                 <div>
                     <Breadcrumb>
                         <Breadcrumb.Item>
-                            <a href="/">Нүүр</a>
+                            <a href="/">Нүүр хуудас</a>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
                             19-20 оны Улирал

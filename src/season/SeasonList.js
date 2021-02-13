@@ -39,7 +39,7 @@ const SeasonList = (props) => {
             <div>
                 <Breadcrumb>
                     <Breadcrumb.Item>
-                        <a href="/">Нүүр</a>
+                        <a href="/">Нүүр хуудас</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>
                         Улирал
@@ -50,6 +50,12 @@ const SeasonList = (props) => {
                         <Col xs={24} sm={16}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                                 <div>
+                                    <Radio.Group onChange={onChangeLeague} defaultValue={level}>
+                                        <Radio.Button value={1}>Дээд</Radio.Button>
+                                        <Radio.Button value={2}>Чэмпионшип</Radio.Button>                                        
+                                    </Radio.Group>
+                                </div>
+                                <div>
                                     <strong>Улирал сонгох: </strong>
                                     <Select defaultValue={leagueID} onChange={handleChange}>
                                         {leagues.map(league => {
@@ -58,13 +64,7 @@ const SeasonList = (props) => {
                                             )
                                         })}
                                     </Select>
-                                </div>
-                                <div>
-                                    <Radio.Group onChange={onChangeLeague} defaultValue={level}>
-                                        <Radio.Button value={1}>Дээд</Radio.Button>
-                                        <Radio.Button value={2}>Чэмпионшип</Radio.Button>                                        
-                                    </Radio.Group>
-                                </div>
+                                </div>                                
                             </div>                            
                             <LeagueTable id={leagueID ? leagueID : leagues[leagues.length - 1].id} />
                         </Col>

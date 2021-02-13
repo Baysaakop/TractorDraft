@@ -44,7 +44,7 @@ const GameWeek = (props) => {
     return (
         <>
             { league ? (
-                <div>            
+                <div>                             
                     <strong>Тойрог сонгох: </strong>
                     <Select defaultValue={league.gameweeks[league.gameweeks.length - 1].id} style={{ marginBottom: '16px' }} onChange={handleChange}>
                         {league.gameweeks.map(gm => {

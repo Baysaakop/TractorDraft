@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, Typography, Spin } from 'antd';
+import { Form, Input, Button, Typography, Spin, Breadcrumb } from 'antd';
 import { LoadingOutlined, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -29,88 +29,98 @@ const Signup = (props) => {
             {props.loading ? (
                 <Spin indicator={loadingIcon} />
             ) : (
-                <div style={{ width: '100%', height: '70vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div style={{ width: '400px', border: '1px solid #a1a1a1', padding: '16px' }}>
-                        <Typography.Title level={3} style={{ textAlign: 'center' }}>
-                            Бүртгүүлэх                    
-                        </Typography.Title>                        
-                        <Form                            
-                            form={form}
-                            name="basic"
-                            initialValues={{
-                                remember: true,
-                            }}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                        >
-                            <Form.Item
-                                name="email"                                
-                                rules={[
-                                {
-                                    type: 'email',
-                                    message: 'The input is not valid E-mail!',
-                                },
-                                {
-                                    required: true,
-                                    message: 'Please input your E-mail!',
-                                },
-                                ]}
+                <div>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>
+                            <a href="/">Нүүр хуудас</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            Нэвтрэх
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                    <div style={{ width: '100%', height: '70vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <div style={{ width: '400px', border: '1px solid #a1a1a1', padding: '16px', background: '#fff' }}>
+                            <Typography.Title level={3} style={{ textAlign: 'center' }}>
+                                Бүртгүүлэх                    
+                            </Typography.Title>                        
+                            <Form                            
+                                form={form}
+                                name="basic"
+                                initialValues={{
+                                    remember: true,
+                                }}
+                                onFinish={onFinish}
+                                onFinishFailed={onFinishFailed}
                             >
-                                <Input prefix={<MailOutlined style={{ color: '#a1a1a1' }} />} placeholder="И-Мэйл" />
-                            </Form.Item>
-                            <Form.Item
-                                name="username"                                                          
-                                rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your username!',
-                                },
-                                ]}
-                            >
-                                <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нэвтрэх нэр" />
-                            </Form.Item>
-                            <Form.Item
-                                name="password"                                
-                                rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your password!',
-                                },
-                                ]}
-                                hasFeedback
-                            >
-                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг" />
-                            </Form.Item>
-                            <Form.Item
-                                name="confirm"                                
-                                dependencies={['password']}
-                                hasFeedback
-                                rules={[
-                                {
-                                    required: true,
-                                    message: 'Please confirm your password!',
-                                },
-                                ({ getFieldValue }) => ({
-                                    validator(rule, value) {
-                                    if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve();
-                                    }
-                                    return Promise.reject('The two passwords that you entered do not match!');
+                                <Form.Item
+                                    name="email"                                
+                                    rules={[
+                                    {
+                                        type: 'email',
+                                        message: 'The input is not valid E-mail!',
                                     },
-                                }),
-                                ]}
-                            >
-                                <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг давтах" />
-                            </Form.Item>
-                            <Form.Item>
-                                <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-                                    Бүртгүүлэх
-                                </Button>
-                                <p> эсвэл 
-                                    <NavLink to="/login/"> нэвтрэх</NavLink>
-                                </p>
-                            </Form.Item>
-                        </Form>
+                                    {
+                                        required: true,
+                                        message: 'Please input your E-mail!',
+                                    },
+                                    ]}
+                                >
+                                    <Input prefix={<MailOutlined style={{ color: '#a1a1a1' }} />} placeholder="И-Мэйл" />
+                                </Form.Item>
+                                <Form.Item
+                                    name="username"                                                          
+                                    rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your username!',
+                                    },
+                                    ]}
+                                >
+                                    <Input prefix={<UserOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нэвтрэх нэр" />
+                                </Form.Item>
+                                <Form.Item
+                                    name="password"                                
+                                    rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password!',
+                                    },
+                                    ]}
+                                    hasFeedback
+                                >
+                                    <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг" />
+                                </Form.Item>
+                                <Form.Item
+                                    name="confirm"                                
+                                    dependencies={['password']}
+                                    hasFeedback
+                                    rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please confirm your password!',
+                                    },
+                                    ({ getFieldValue }) => ({
+                                        validator(rule, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject('The two passwords that you entered do not match!');
+                                        },
+                                    }),
+                                    ]}
+                                >
+                                    <Input.Password prefix={<LockOutlined style={{ color: '#a1a1a1' }} />} placeholder="Нууц үг давтах" />
+                                </Form.Item>
+                                <Form.Item>
+                                    <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                                        Бүртгүүлэх
+                                    </Button>
+                                    <p> эсвэл 
+                                        <NavLink to="/login/"> нэвтрэх</NavLink>
+                                    </p>
+                                </Form.Item>
+                            </Form>
+                        </div>
                     </div>
                 </div>
             )}  

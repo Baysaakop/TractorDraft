@@ -15,20 +15,22 @@ const Logout = (props) => {
     }
 
     return (
-        <Result
-            status="warning"
-            title="Та системээс гарахдаа итгэлтэй байна уу?"
-            extra={
-                <div>
-                    <Button type="primary" key="console" style={{ marginRight: '16px' }} onClick={onOk}>
-                        Тийм
-                    </Button>
-                    <Button type="default" key="console" onClick={onCancel}>
-                        Үгүй
-                    </Button>
-                </div>
-            }
-        />
+        <div style={{ width: '100%', height: '80vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Result
+                status="warning"
+                title="Та системээс гарахдаа итгэлтэй байна уу?"
+                extra={
+                    <div>
+                        <Button type="primary" key="console" style={{ marginRight: '16px' }} onClick={onOk}>
+                            Тийм
+                        </Button>
+                        <Button type="default" key="console" onClick={onCancel}>
+                            Үгүй
+                        </Button>
+                    </div>
+                }
+            />
+        </div>
     )
 }
 

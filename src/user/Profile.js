@@ -1,4 +1,4 @@
-import { Button, Col, Result, Row, Typography } from 'antd';
+import { Breadcrumb, Button, Col, Result, Row, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -29,21 +29,31 @@ function Profile (props) {
     return (
         <div>
             {user ? (
-                <Row gutter={[16, 16]} style={{ width: 400 }}>
-                    <Col span={8}>
-                        <Avatar size={96} icon={<UserOutlined />} />
-                    </Col>
-                    <Col span={16} style={{ display: 'flex', alignItems: 'center' }}>
-                        <Typography.Title level={3}>{user.username}</Typography.Title>
-                        <a href="/">[Edit]</a>
-                        {/* <p>E-mail: {user.email}</p> */}
-                    </Col>                    
-                    <Col span={24} style={{ paddingLeft: '16px' }}>
-                        <p ><MailOutlined /> {user.email}</p>                        
-                        <p><PhoneOutlined /> 99113355</p>
-                        <p><CalendarOutlined /> 2000-05-20</p>
-                    </Col>
-                </Row>
+                <div>
+                    <Breadcrumb>
+                        <Breadcrumb.Item>
+                            <a href="/">Нүүр хуудас</a>
+                        </Breadcrumb.Item>
+                        <Breadcrumb.Item>
+                            Хэрэглэгч
+                        </Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Row gutter={[16, 16]} style={{ width: 400, margin: '16px 0' }}>
+                        <Col span={8}>
+                            <Avatar size={96} icon={<UserOutlined />} />
+                        </Col>
+                        <Col span={16} style={{ display: 'flex', alignItems: 'center' }}>
+                            <Typography.Title level={3}>{user.username}</Typography.Title>
+                            <a href="/">[Edit]</a>
+                            {/* <p>E-mail: {user.email}</p> */}
+                        </Col>                    
+                        <Col span={24} style={{ paddingLeft: '16px' }}>
+                            <p ><MailOutlined /> {user.email}</p>                        
+                            <p><PhoneOutlined /> 99113355</p>
+                            <p><CalendarOutlined /> 2000-05-20</p>
+                        </Col>
+                    </Row>
+                </div>
             ) : (
                 <Result
                     status="403"

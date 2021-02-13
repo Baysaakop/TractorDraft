@@ -76,7 +76,7 @@ const BlogCreate = (props) => {
                 <>
                     <Breadcrumb>
                         <Breadcrumb.Item>
-                            <a href="/">Нүүр</a>
+                            <a href="/">Нүүр хуудас</a>
                         </Breadcrumb.Item>
                         <Breadcrumb.Item>
                             Шинэ нийтлэл
