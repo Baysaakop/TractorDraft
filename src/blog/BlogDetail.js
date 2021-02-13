@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Col, Divider, Image, Row, Spin, Typography } from 'antd';
+import { Breadcrumb, Col, Divider, Row, Spin, Typography } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import api from '../api';
-
-const { Paragraph } = Typography;
 
 const BlogDetail = (props) => {
 

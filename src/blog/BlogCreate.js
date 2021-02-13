@@ -1,4 +1,4 @@
-import { Breadcrumb, Button, Form, Input, Result, Typography } from 'antd';
+import { Breadcrumb, Button, Form, Input, Result, Typography, message } from 'antd';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { connect } from "react-redux";
@@ -64,8 +64,12 @@ const BlogCreate = (props) => {
                 'Content-Type': 'multipart/form-data'                
             }
         }).then(res => {
+            if (res.data.status === 201 || res.data.status === 200) {
+                message.info("Амжилттай нийтлэгдлээ.")
+            }
             console.log(res)            
         }).catch(error => {
+            message.error("Нийтлэх үед алдаа гарлаа. Та хэсэг хүлээгээд дахин оролдоно уу!")
             console.log(error)
         })
     };

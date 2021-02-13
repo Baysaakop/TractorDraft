@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb, Row, Col, Collapse, Tabs, Typography } from 'antd';
-import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined, QuestionCircleOutlined, EditOutlined, PlusOutlined, ReadOutlined, InfoCircleOutlined, SettingOutlined, HistoryOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, CalendarOutlined, HomeOutlined, TeamOutlined, ProjectOutlined, QuestionCircleOutlined, EditOutlined, ReadOutlined, InfoCircleOutlined, SettingOutlined, HistoryOutlined } from '@ant-design/icons';
 import Home1 from '../images/Home/Home1.JPG';
 import Home2 from '../images/Home/Home2.JPG';
 import Home3 from '../images/Home/Home3.JPG';

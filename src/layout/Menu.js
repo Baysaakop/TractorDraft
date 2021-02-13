@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { AreaChartOutlined, BookOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined, QuestionCircleOutlined, EditOutlined, PlusOutlined, ReadOutlined, InfoCircleOutlined, SettingOutlined, HistoryOutlined } from '@ant-design/icons';
+import { AreaChartOutlined, CalendarOutlined, HomeOutlined, MenuOutlined, TeamOutlined, ProjectOutlined, ProfileOutlined, UserOutlined, LogoutOutlined, LoginOutlined, QuestionCircleOutlined, EditOutlined, PlusOutlined, ReadOutlined, InfoCircleOutlined, SettingOutlined, HistoryOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import api from '../api';
 import SubMenu from 'antd/lib/menu/SubMenu';
