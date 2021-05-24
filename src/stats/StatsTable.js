@@ -21,7 +21,8 @@ const columns = [
     },
     {
         title: 'Тоо',
-        dataIndex: 'number',        
+        dataIndex: 'number',      
+        render: item => <div style={{ textAlign: 'right' }}>{item}</div>
     },
 ];
 
@@ -30,7 +31,6 @@ const StatsTable = (props) => {
     const [data, setData] = useState();       
     
     useEffect(() => {    
-        console.log(props.data)
         setData(props.data)                       
     }, [props.data])
 
@@ -38,7 +38,7 @@ const StatsTable = (props) => {
         <div>
             { data ? (
                 <div>
-                    <Table columns={columns} dataSource={data} size="small" pagination={{ pageSize: 5, }} showHeader={false} />
+                    <Table columns={columns} dataSource={data} size="small" pagination={{ pageSize: 20, }} showHeader={false} />
                 </div>
             ) : (
                 <div style={{ width: '100%', height: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

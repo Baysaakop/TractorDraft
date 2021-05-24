@@ -23,6 +23,8 @@ import GameweekUpdate from './duel/GameweekUpdate';
 import Blogs from './blog/Blogs';
 import BlogDetail from './blog/BlogDetail';
 import BlogCreate from './blog/BlogCreate';
+import StatsMatch from './stats/StatsMatch';
+import StatsSeason from './stats/StatsSeason';
 
 function BaseRouter () {
     return (
@@ -52,7 +54,9 @@ function BaseRouter () {
             <Route exact path="/managers/:itemID" component={ManagerDetail} />
             <Route exact path="/compare" component={DuelCompare} />
             {/* Stats */}
-            <Route exact path="/stats" component={StatsList} />                        
+            <Route exact path="/stats" component={StatsList} />          
+            <Route exact path="/statsmatch" component={StatsMatch} />             
+            <Route exact path="/statseason" component={StatsSeason} />                        
             {/* Blog */}
             <Route exact path="/posts" component={Blogs} />
             <Route exact path="/posts/:postID" component={BlogDetail} />
