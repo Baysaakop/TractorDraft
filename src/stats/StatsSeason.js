@@ -1,26 +1,18 @@
-import { Breadcrumb, Card, Col, Row, Avatar, Radio, Spin, Table } from "antd"
+import { Breadcrumb, Card, Col, Row, Avatar, Radio, Spin } from "antd"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import api from '../api';
-import { FrownFilled, FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, ProjectOutlined, StarFilled } from '@ant-design/icons';
+import { FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, StarFilled } from '@ant-design/icons';
 import StatsTable from './StatsTable';
 
 function StatsSeason (props) {    
-    const [teams, setTeams] = useState()
     const [managers, setManagers] = useState();        
     const [level, setLevel] = useState(0)    
     const [leagues, setLeagues] = useState()
     const [loading, setLoading] = useState()    
+
     useEffect(() => {     
-        setLoading(true)           
-        axios({
-            method: 'GET',
-            url: `${api.tableteams}`
-        }).then(res => {                   
-            setTeams(res.data)                        
-        }).catch(err => {
-            console.log(err.message)
-        });                 
+        setLoading(true)                            
         axios({
             method: 'GET',
             url: `${api.managers}`
@@ -33,6 +25,7 @@ function StatsSeason (props) {
             method: 'GET',
             url: `${api.leagues}`
         }).then(res => {                   
+            console.log(res.data)
             setLeagues(res.data)                 
         }).catch(err => {
             console.log(err.message)
@@ -40,46 +33,67 @@ function StatsSeason (props) {
         setLoading(false)
     }, []);    
 
-    function orderBySinglePoints(teams, count) {        
-        let pts = teams.sort((a, b) => b.points - a.points).slice(0, count)
+    function orderBySinglePoints(list, size) {        
+        if (level > 0) {
+            list = list.filter(x => x.level === level)
+        }        
         let arr = []
-        for (let i = 0; i < pts.length; i++) {
-            let data = {
-                rank: i + 1,
-                manager: pts[i].manager,
-                number: pts[i].points
-            }
-            arr.push(data)
+        list.forEach(league => {
+            league.table.teams.forEach(team => {
+                let item = {
+                    manager: team.manager,
+                    number: team.points
+                }
+                arr.push(item)
+            })
+        })
+        arr = arr.sort((a, b) => b.number - a.number).slice(0, size)
+        for (let i = 0; i < arr.length; i++) {
+            arr[i].rank = i+1
         }
-        return arr
+        return arr     
     }
 
-    function orderBySingleScore(teams, count) {        
-        let pts = teams.sort((a, b) => b.score - a.score).slice(0, count)
+    function orderBySingleScore(list, size) {        
+        if (level > 0) {
+            list = list.filter(x => x.level === level)
+        }        
         let arr = []
-        for (let i = 0; i < pts.length; i++) {
-            let data = {
-                rank: i + 1,
-                manager: pts[i].manager,
-                number: pts[i].score
-            }
-            arr.push(data)
+        list.forEach(league => {
+            league.table.teams.forEach(team => {
+                let item = {
+                    manager: team.manager,
+                    number: team.score
+                }
+                arr.push(item)
+            })
+        })
+        arr = arr.sort((a, b) => b.number - a.number).slice(0, size)
+        for (let i = 0; i < arr.length; i++) {
+            arr[i].rank = i+1
         }
-        return arr
+        return arr  
     }
 
-    function orderBySingleScoreLow(teams, count) {        
-        let pts = teams.sort((a, b) => a.score - b.score).slice(0, count)
+    function orderBySingleScoreLow(list, size) {        
+        if (level > 0) {
+            list = list.filter(x => x.level === level)
+        }        
         let arr = []
-        for (let i = 0; i < pts.length; i++) {
-            let data = {
-                rank: i + 1,
-                manager: pts[i].manager,
-                number: pts[i].score
-            }
-            arr.push(data)
+        list.forEach(league => {
+            league.table.teams.forEach(team => {
+                let item = {
+                    manager: team.manager,
+                    number: team.score
+                }
+                arr.push(item)
+            })
+        })
+        arr = arr.sort((a, b) => a.number - b.number).slice(0, size)
+        for (let i = 0; i < arr.length; i++) {
+            arr[i].rank = i+1
         }
-        return arr
+        return arr 
     }
 
     function onChangeLevel(e) {
@@ -331,22 +345,29 @@ function StatsSeason (props) {
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
                     <Spin />
                 </div>
-            : managers && teams && leagues ? 
-                <div>                    
+            : managers && leagues ? 
+                <div>                
+                    <div style={{ margin: '16px 0' }}>
+                        <Radio.Group onChange={onChangeLevel} defaultValue={level}>
+                            <Radio.Button value={1}>Дээд</Radio.Button>
+                            <Radio.Button value={2}>Чэмпионшип</Radio.Button>
+                            <Radio.Button value={0}>Нийт</Radio.Button>                                        
+                        </Radio.Group>
+                    </div>        
                     <Row gutter={16}>
                         <Col xs={24} sm={12} md={8}style={{ padding: '8px' }}>                                
                             <Card title="Нэг улирлын оноо" size="small" extra={<Avatar shape="square" icon={<StarFilled style={{ color: 'yellow' }} />} />}>
-                                <StatsTable data={orderBySinglePoints(teams, 20)} />
+                                <StatsTable data={orderBySinglePoints(leagues, 20)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                
                             <Card title="Нэг улирлын +" size="small" extra={<Avatar shape="square" icon={<PlusOutlined style={{ color: '#000' }} />} />}>
-                                <StatsTable data={orderBySingleScore(teams, 20)} />
+                                <StatsTable data={orderBySingleScore(leagues, 20)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                
-                            <Card title="Нэг улирлын +" size="small" extra={<Avatar shape="square" icon={<MinusOutlined style={{ color: '#000' }} />} />}>
-                                <StatsTable data={orderBySingleScoreLow(teams, 20)} />
+                            <Card title="Нэг улирлын -" size="small" extra={<Avatar shape="square" icon={<MinusOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderBySingleScoreLow(leagues, 20)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8}style={{ padding: '8px' }}>                                

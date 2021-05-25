@@ -1,8 +1,8 @@
-import { Breadcrumb, Card, Col, Row, Avatar, Radio, Spin, Table } from "antd"
+import { Breadcrumb, Card, Col, Row, Avatar, Radio, Spin } from "antd"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import api from '../api';
-import { FrownFilled, FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, ProjectOutlined, StarFilled, TrophyFilled, TrophyOutlined, PushpinOutlined, LikeOutlined, DislikeOutlined } from '@ant-design/icons';
+import { FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, StarFilled, TrophyFilled, TrophyOutlined, PushpinOutlined, LikeOutlined, DislikeOutlined } from '@ant-design/icons';
 import StatsTable from './StatsTable';
 
 function StatsLeague (props) {
@@ -403,7 +403,14 @@ function StatsLeague (props) {
                     <Spin />
                 </div>
             : managers && leagues ? 
-                <div>                    
+                <div>             
+                    <div style={{ margin: '16px 0' }}>
+                        <Radio.Group onChange={onChangeLevel} defaultValue={level}>
+                            <Radio.Button value={1}>Дээд</Radio.Button>
+                            <Radio.Button value={2}>Чэмпионшип</Radio.Button>
+                            <Radio.Button value={0}>Нийт</Radio.Button>                                        
+                        </Radio.Group>
+                    </div>          
                     <Row gutter={16}>
                         <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>
                             <Card title="Түрүү" size="small" extra={<Avatar shape="square" icon={<TrophyFilled style={{ color: 'yellow' }} />} />}>
