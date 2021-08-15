@@ -395,7 +395,7 @@ function StatsLeague (props) {
                     <a href="/stats">Статистик</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    Тоглолт
+                    Лиг
                 </Breadcrumb.Item>
             </Breadcrumb>      
             { loading ?

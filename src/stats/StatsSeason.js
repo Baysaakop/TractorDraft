@@ -338,7 +338,7 @@ function StatsSeason (props) {
                     <a href="/stats">Статистик</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                    Тоглолт
+                    Улирал
                 </Breadcrumb.Item>
             </Breadcrumb>      
             { loading ?
