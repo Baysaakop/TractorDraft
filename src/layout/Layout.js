@@ -98,7 +98,7 @@ function CustomLayout (props) {
                         </a>
                     </Tooltip>
                     <p>
-                        © 2021 Трактор Фантази Лиг. Системийг хөгжүүлсэн On Plus ХХК
+                        © 2021 Трактор Фантази Лиг.
                     </p>
                 </div>                
             </Footer>
