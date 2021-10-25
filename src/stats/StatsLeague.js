@@ -2,7 +2,7 @@ import { Breadcrumb, Card, Col, Row, Avatar, Radio, Spin } from "antd"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import api from '../api';
-import { FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, StarFilled, TrophyFilled, TrophyOutlined, PushpinOutlined, LikeOutlined, DislikeOutlined } from '@ant-design/icons';
+import { FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, StarFilled, TrophyFilled, TrophyOutlined, PushpinOutlined, LikeOutlined, DislikeOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import StatsTable from './StatsTable';
 
 function StatsLeague (props) {
@@ -78,16 +78,16 @@ function StatsLeague (props) {
         return res
     }
 
-    function getAppearance(manager, level) {
+    function getVanga(manager, level) {
         let res = 0
         if (level === 0) {
             manager.career.forEach(career => {
-                res += career.total_appearance
+                res += career.total_vanga
             })
         } else {
             let career = manager.career.find(x => x.level === level)
             if (career) {
-                res = career.total_appearance
+                res = career.total_vanga
             }
         }
         return res
@@ -255,14 +255,14 @@ function StatsLeague (props) {
         return result
     }
 
-    function orderByAppearance(data, size) {
+    function orderByVanga(data, size) {
         let result = []
-        let sorted = data.sort((a, b) => getAppearance(b, level) - getAppearance(a, level))
+        let sorted = data.sort((a, b) => getVanga(b, level) - getVanga(a, level))
         for (let i = 0; i < size; i++) {
             let item = { 
                 rank: (i + 1),
                 manager: sorted[i],
-                number: getAppearance(sorted[i], level)  
+                number: getVanga(sorted[i], level)  
             }
             result.push(item)
         }
@@ -426,12 +426,7 @@ function StatsLeague (props) {
                             <Card title="3-р байр" size="small" extra={<Avatar shape="square" icon={<TrophyFilled style={{ color: '#cd7f32' }} />} />}>
                                 <StatsTable data={orderByThird(managers, 20)} />
                             </Card>
-                        </Col>
-                        <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                
-                            <Card title="Оролцсон" size="small" extra={<Avatar shape="square" icon={<PushpinOutlined style={{ color: '#000' }} />} />}>
-                                <StatsTable data={orderByAppearance(managers, 20)} />
-                            </Card>
-                        </Col>
+                        </Col>                       
                         <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                
                             <Card title="Мэргэн бууч" size="small" extra={<Avatar shape="square" icon={<LikeOutlined style={{ color: '#000' }} />} />}>                                
                                 <StatsTable data={orderByTopScorer(managers, 20)} />
@@ -440,6 +435,11 @@ function StatsLeague (props) {
                         <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                
                             <Card title="МБ-тай таарсан" size="small" extra={<Avatar shape="square" icon={<DislikeOutlined style={{ color: '#000' }} />} />}>
                                 <StatsTable data={orderByTopScorerAway(managers, 20)} />
+                            </Card>
+                        </Col>
+                        <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                
+                            <Card title="Ванга" size="small" extra={<Avatar shape="square" icon={<QuestionCircleOutlined style={{ color: '#000' }} />} />}>
+                                <StatsTable data={orderByVanga(managers, 20)} />
                             </Card>
                         </Col>
                         <Col xs={24} sm={12} md={8} style={{ padding: '8px' }}>                                

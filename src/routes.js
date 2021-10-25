@@ -26,6 +26,7 @@ import BlogCreate from './blog/BlogCreate';
 import StatsMatch from './stats/StatsMatch';
 import StatsSeason from './stats/StatsSeason';
 import StatsLeague from './stats/StatsLeague';
+import Calculate from './components/Calculate';
 
 function BaseRouter () {
     return (
@@ -63,6 +64,8 @@ function BaseRouter () {
             <Route exact path="/posts" component={Blogs} />
             <Route exact path="/posts/:postID" component={BlogDetail} />
             <Route exact path="/newpost" component={BlogCreate} />
+
+            <Route exact path="/calc" component={Calculate} />
         </Switch>
     )    
 }
