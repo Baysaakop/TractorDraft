@@ -8,7 +8,6 @@ import CountUp from 'react-countup';
 const { Paragraph } = Typography;
 
 function Home (props) {    
-    const [ellipsis, setEllipsis] = useState(true);
     const [posts, setPosts] = useState();
     const [leagues, setLeagues] = useState();
     const [managers, setManagers] = useState();    
@@ -133,7 +132,7 @@ function Home (props) {
                                         </Col>
                                         <Col sm={24} md={12}>
                                             <Typography.Title level={2}>{posts[0].title}</Typography.Title>
-                                            <Paragraph ellipsis={ellipsis ? { rows: 4, expandable: false, symbol: 'more' } : false}>                                                
+                                            <Paragraph ellipsis={{ rows: 4, expandable: false, symbol: 'more' }}>                                                
                                                 <div dangerouslySetInnerHTML={{__html: posts[0].content }} />
                                             </Paragraph>                                        
                                             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px' }}>
@@ -149,7 +148,7 @@ function Home (props) {
                                     <Row gutter={16} style={{ width: '100%' }}>
                                         <Col sm={24} md={12}>
                                             <Typography.Title level={2}>{posts[1].title}</Typography.Title>
-                                            <Paragraph ellipsis={ellipsis ? { rows: 4, expandable: false, symbol: 'more' } : false}>
+                                            <Paragraph ellipsis={{ rows: 4, expandable: false, symbol: 'more' }}>
                                                 <div dangerouslySetInnerHTML={{__html: posts[1].content }} />
                                             </Paragraph>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '24px' }}>

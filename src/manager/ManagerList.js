@@ -11,7 +11,9 @@ const ManagerList = (props) => {
     const [sortType, setSortType] = useState('champ');
     const [level, setLevel] = useState(0);
 
-    useEffect(getData, [])    
+    useEffect(() => {
+        getData()
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps        
 
     function getData() {
         axios({

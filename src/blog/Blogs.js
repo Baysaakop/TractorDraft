@@ -15,8 +15,7 @@ const IconText = ({ icon, text }) => (
 
 const Blogs = (props) => {
 
-    const [posts, setPosts] = useState();
-    const [ellipsis, setEllipsis] = useState(true);
+    const [posts, setPosts] = useState();    
 
     useEffect(() => {
         axios({
@@ -73,7 +72,7 @@ const Blogs = (props) => {
                                     title={<a href={`/posts/${item.id}`}>{item.title}</a>}    
                                     description={<span>Нийтлэсэн: {item.created_by.username}</span>}                                                                           
                                 />
-                                <Paragraph ellipsis={ellipsis ? { rows: 4, expandable: false } : false}>
+                                <Paragraph ellipsis={{ rows: 4, expandable: false }}>
                                     <div dangerouslySetInnerHTML={{__html: item.content }} />
                                 </Paragraph>        
                                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>

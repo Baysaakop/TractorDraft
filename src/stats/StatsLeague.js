@@ -2,7 +2,7 @@ import { Breadcrumb, Card, Col, Row, Avatar, Radio, Spin } from "antd"
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import api from '../api';
-import { FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, StarFilled, TrophyFilled, TrophyOutlined, PushpinOutlined, LikeOutlined, DislikeOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { FrownOutlined, MehOutlined, MinusOutlined, SmileOutlined, PlusOutlined, StarFilled, TrophyFilled, TrophyOutlined, LikeOutlined, DislikeOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import StatsTable from './StatsTable';
 
 function StatsLeague (props) {
