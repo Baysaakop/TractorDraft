@@ -1,7 +1,7 @@
-//const baseURL = 'http://127.0.0.1:8000/';
+// const baseURL = 'http://127.0.0.1:8000/';
 const baseURL = 'https://tractordraftback.herokuapp.com/';
 
-const api = {    
+const api = {
     items: baseURL + 'api/items',
     users: baseURL + 'api/users',
     signin: baseURL + 'rest-auth/login/',
@@ -14,11 +14,11 @@ const api = {
     gameweeks: baseURL + 'api/fantasy/gameweeks',
     tableteams: baseURL + 'api/fantasy/tableteams',
     tables: baseURL + 'api/fantasy/tables',
-    leagues: baseURL + 'api/fantasy/leagues',    
-    duels: baseURL + 'api/fantasy/duels',    
-    league19teams: baseURL + 'api/fantasy/league19teams',    
-    league19: baseURL + 'api/fantasy/league19',    
-    posts: baseURL + 'api/fantasy/posts',    
+    leagues: baseURL + 'api/fantasy/leagues',
+    duels: baseURL + 'api/fantasy/duels',
+    league19teams: baseURL + 'api/fantasy/league19teams',
+    league19: baseURL + 'api/fantasy/league19',
+    posts: baseURL + 'api/fantasy/posts',
 }
 
 export default api;
