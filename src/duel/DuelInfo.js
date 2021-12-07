@@ -72,10 +72,11 @@ const DuelInfo = (props) => {
                             md: 2,
                             lg: 3,
                             xl: 3,
-                            xxl: 4,
+                            xxl: 3,
                         }}
                         pagination={{
-                            pageSize: 9
+                            pageSize: 3,
+                            size: 'small'
                         }}
                         dataSource={getOpponents()}
                         renderItem={item => (

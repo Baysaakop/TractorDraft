@@ -5,6 +5,7 @@ import axios from 'axios';
 import api from '../api';
 import CareerTable from '../components/CareerTable';
 import DuelInfo from '../duel/DuelInfo';
+import ManagerResults from './ManagerResults';
 
 const ManagerDetail = (props) => {
 
@@ -692,6 +693,10 @@ const ManagerDetail = (props) => {
                     <div style={{ margin: '16px' }}>
                         <Typography.Title level={4}>Түүх</Typography.Title>
                         <CareerTable data={getTeams()} />
+                    </div>
+                    <div style={{ margin: '16px' }}>
+                        <Typography.Title level={4}>Үр дүнгүүд</Typography.Title>
+                        <ManagerResults manager={manager} />
                     </div>
                     <div style={{ margin: '16px' }}>
                         <Typography.Title level={4}>Өрсөлдөгчид</Typography.Title>
