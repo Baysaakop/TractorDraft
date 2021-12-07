@@ -9,7 +9,7 @@ function ManagerResults(props) {
 
     useEffect(() => {        
         getManager(props.manager)
-    }, [props.manager])
+    }, [props.manager]) // eslint-disable-line no-use-before-define
 
     function getManager (manager) {
         let url = api.matches + "?manager=" + props.manager.id
