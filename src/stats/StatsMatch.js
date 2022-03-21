@@ -72,16 +72,18 @@ function StatsMatch (props) {
         list.forEach(league => {
             league.gameweeks.forEach(gameweek => {
                 gameweek.matches.forEach(match => {
-                    let home = {
-                        manager: match.home_team,
-                        number: match.home_score
-                    } 
-                    let away = {
-                        manager: match.away_team,
-                        number: match.away_score
-                    }
-                    arr.push(home)
-                    arr.push(away)
+                    if (match.home_score !== 0 && match.away_score !== 0) {
+                        let home = {
+                            manager: match.home_team,
+                            number: match.home_score
+                        } 
+                        let away = {
+                            manager: match.away_team,
+                            number: match.away_score
+                        }
+                        arr.push(home)
+                        arr.push(away)
+                    }                    
                 })
             })
         })
